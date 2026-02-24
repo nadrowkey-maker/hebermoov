@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#020a06">
+    <meta name="description" content="HeberMoov - La forêt comme salle de sport">
+    <title>HeberMoov Glass Forest - Ultimate</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div class="ambient-background">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <div id="app-wrapper">
+        
+        <div id="splash-screen" class="fullscreen-overlay active z-supreme glass-heavy flex-center flex-col">
+            <div class="brand-logo-container pulse-anim mb-20">
+                <i class="fas fa-tree text-neon text-6xl"></i>
+            </div>
+            <h1 class="font-heading text-4xl text-white tracking-widest">HEBER<span class="text-neon">MOOV</span></h1>
+            <p class="text-muted mt-10 text-sm tracking-widest uppercase">Initialisation STAPS...</p>
+            <div class="loader-line mt-30"><div class="loader-fill"></div></div>
+        </div>
+
+        <div id="onboarding-overlay" class="fullscreen-overlay hidden z-highest glass-heavy">
+            <div class="onboarding-slider" id="onboarding-slider">
+                <div class="onboarding-slide active" id="slide-1">
+                    <div class="onboarding-img-box glass-mirror"><i class="fas fa-leaf text-neon text-5xl"></i></div>
+                    <h2 class="font-heading text-2xl text-white mb-10 mt-20">Retour aux sources</h2>
+                    <p class="text-muted text-sm line-height-15">La méthode naturelle transforme la forêt en votre salle d'entraînement. Oubliez les machines, utilisez votre environnement.</p>
+                </div>
+                <div class="onboarding-slide hidden" id="slide-2">
+                    <div class="onboarding-img-box glass-mirror"><i class="fas fa-camera text-neon text-5xl"></i></div>
+                    <h2 class="font-heading text-2xl text-white mb-10 mt-20">L'Action par l'Image</h2>
+                    <p class="text-muted text-sm line-height-15">À chaque atelier, prenez une photo pour valider votre réussite. Notre algorithme validera votre progression.</p>
+                </div>
+                <div class="onboarding-slide hidden" id="slide-3">
+                    <div class="onboarding-img-box glass-mirror"><i class="fas fa-bolt text-neon text-5xl"></i></div>
+                    <h2 class="font-heading text-2xl text-white mb-10 mt-20">Gagnez en puissance</h2>
+                    <p class="text-muted text-sm line-height-15">Accumulez de l'XP, montez en niveau et débloquez des équipements pour votre survie en milieu naturel.</p>
+                </div>
+            </div>
+            <div class="onboarding-controls p-20 w-100 absolute bottom-0">
+                <div class="slide-indicators flex-center gap-10 mb-20">
+                    <div class="dot active"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+                <button class="btn-glass-primary w-100 font-bold text-lg" onclick="nextOnboarding()">SUIVANT</button>
+            </div>
+        </div>
+
+        <div id="camera-flash" class="hidden"></div>
+
+        <div id="toast-container" class="toast-hidden glass-mirror">
+            <div class="toast-content flex-align gap-15 p-15">
+                <div class="toast-icon-bg bg-neon-dim p-10 rounded-full"><i class="fas fa-bell text-neon" id="toast-icon"></i></div>
+                <div class="toast-text-block flex-1">
+                    <strong id="toast-title" class="text-white font-heading text-sm block mb-5">Notification</strong>
+                    <span id="toast-msg" class="text-muted text-xs line-height-15 block">Message système</span>
+                </div>
+            </div>
+        </div>
+
+        <header id="main-header" class="glass-header flex-between p-20 z-high">
+            <div class="header-brand flex-align gap-10">
+                <div class="brand-pulse bg-neon rounded-full"></div>
+                <h1 class="font-heading text-lg text-white tracking-widest m-0">HEBER<span class="text-neon">MOOV</span></h1>
+            </div>
+            <div class="header-tools flex-align gap-15">
+                <div class="gps-indicator text-neon" onclick="showToast('GPS', 'Signal fort. Précision 3m.')">
+                    <i class="fas fa-satellite-dish blink-slow"></i>
+                </div>
+                <div class="xp-pill glass-button flex-align gap-5 p-5-15 rounded-pill border-neon-glow cursor-pointer" onclick="navigateMain('view-profile', document.querySelectorAll('.nav-tab')[4])">
+                    <i class="fas fa-bolt text-neon"></i>
+                    <span id="header-xp-val" class="font-bold text-white text-sm">0</span> <span class="text-xs text-muted">XP</span>
+                </div>
+            </div>
+        </header>
+
+        <div id="global-progress-bar" class="glass-header hidden absolute top-70 w-100 z-high border-none">
+            <div class="p-15-20">
+                <div class="progress-info flex-between mb-10">
+                    <span id="progress-park-name" class="font-heading text-xs text-white uppercase tracking-widest">Parcours</span>
+                    <span id="progress-percent" class="text-neon font-bold text-xs">0%</span>
+                </div>
+                <div class="progress-track bg-dark-dim h-6 rounded-pill overflow-hidden">
+                    <div id="progress-fill" class="progress-fill-neon h-100 w-0 transition-smooth"></div>
+                </div>
+            </div>
+        </div>
+
+        <main id="main-viewport" class="relative flex-1 z-base">
+
+            <section id="view-explore" class="app-view active absolute inset-0 overflow-y-auto pb-120 pt-80">
+                
+                <div class="hero-header glass-panel p-20-30 mb-20 rounded-b-3xl border-b-glass">
+                    <div class="weather-widget glass-mirror flex-align gap-10 p-10-15 rounded-pill mb-20 inline-flex">
+                        <i class="fas fa-cloud-rain text-info text-lg"></i>
+                        <div class="flex-col">
+                            <span class="text-white font-bold text-xs">12°C • Rennes</span>
+                            <span class="text-muted text-xxs uppercase tracking-widest">Sol Humide • Prudence</span>
+                        </div>
+                    </div>
+                    
+                    <h2 class="font-heading text-3xl text-white mb-10">Trouvez votre<br><span class="text-neon">Forêt.</span></h2>
+                    <p class="text-muted text-sm mb-25 line-height-15">L'instabilité du terrain est votre meilleure machine de musculation.</p>
+                    
+                    <div class="search-bar glass-mirror flex-align gap-15 p-15 rounded-xl mb-20 border-focus-neon transition-smooth">
+                        <i class="fas fa-search text-muted text-lg"></i>
+                        <input type="text" id="search-input" class="bg-transparent border-none outline-none text-white w-100 font-body text-sm" placeholder="Chercher un bois, une clairière..." onkeyup="searchParcours()">
+                    </div>
+
+                    <div class="filters-scroll flex gap-10 overflow-x-auto pb-10 hide-scrollbar">
+                        <button class="glass-filter-btn active" onclick="applyFilter('Tous', this)">Toutes</button>
+                        <button class="glass-filter-btn" onclick="applyFilter('Dense', this)">Forêts Denses</button>
+                        <button class="glass-filter-btn" onclick="applyFilter('Clairière', this)">Clairières</button>
+                        <button class="glass-filter-btn" onclick="applyFilter('Humide', this)">Zones Humides</button>
+                        <button class="glass-filter-btn" onclick="applyFilter('Intense', this)">Difficiles</button>
+                    </div>
+                </div>
+
+                <div class="content-padding p-0-20">
+                    <div class="flex-between mb-20 mt-10">
+                        <h3 class="font-heading text-lg text-white">Domaines à proximité</h3>
+                        <i class="fas fa-map-marker-alt text-neon pulse-anim"></i>
+                    </div>
+                    <div id="parcours-grid" class="cards-grid-vertical flex-col gap-20">
+                        </div>
+                </div>
+                <div class="scroll-spacer h-100"></div>
+            </section>
+
+            <section id="view-challenges" class="app-view absolute inset-0 overflow-y-auto pb-120 pt-80 hidden">
+                <div class="hero-header glass-panel p-20-30 mb-20 rounded-b-3xl border-b-glass">
+                    <h2 class="font-heading text-3xl text-white mb-10">Défis &<br><span class="text-neon">Boutique</span></h2>
+                    <p class="text-muted text-sm line-height-15">Accomplissez des exploits en forêt pour débloquer de l'équipement de survie.</p>
+                </div>
+                
+                <div class="content-padding p-0-20">
+                    <div class="flex-between mb-15 mt-10">
+                        <h3 class="font-heading text-lg text-white">Défis de la semaine</h3>
+                        <span class="text-xs text-muted">Se termine dans 2j</span>
+                    </div>
+
+                    <div class="challenge-list flex-col gap-15 mb-40">
+                        <div class="challenge-card glass-mirror p-20 rounded-xl border-l-neon">
+                            <div class="flex-between mb-10">
+                                <div class="flex-align gap-10">
+                                    <div class="icon-box bg-neon-dim p-10 rounded-lg"><i class="fas fa-tree text-neon"></i></div>
+                                    <strong class="text-white font-heading text-sm">Le Bûcheron</strong>
+                                </div>
+                                <span class="badge-xp bg-neon-dim text-neon font-bold text-xs p-5-10 rounded-pill">+200 XP</span>
+                            </div>
+                            <p class="text-xs text-muted mb-15">Validez 5 ateliers de type "Grimper" ou "Lever" en forêt dense.</p>
+                            <div class="progress-track bg-dark-dim h-4 rounded-pill overflow-hidden mb-5">
+                                <div class="progress-fill-neon h-100" style="width: 40%;"></div>
+                            </div>
+                            <div class="text-right text-xxs text-muted font-bold">2/5 TERMINÉS</div>
+                        </div>
+
+                        <div class="challenge-card glass-mirror p-20 rounded-xl border-l-warning">
+                            <div class="flex-between mb-10">
+                                <div class="flex-align gap-10">
+                                    <div class="icon-box bg-warning-dim p-10 rounded-lg"><i class="fas fa-running text-warning"></i></div>
+                                    <strong class="text-white font-heading text-sm">Course Folle</strong>
+                                </div>
+                                <span class="badge-xp bg-warning-dim text-warning font-bold text-xs p-5-10 rounded-pill">+150 XP</span>
+                            </div>
+                            <p class="text-xs text-muted mb-15">Parcourez 10km au total cette semaine.</p>
+                            <div class="progress-track bg-dark-dim h-4 rounded-pill overflow-hidden mb-5">
+                                <div class="progress-fill-warning h-100 bg-warning" style="width: 80%;"></div>
+                            </div>
+                            <div class="text-right text-xxs text-muted font-bold">8/10 KM</div>
+                        </div>
+                    </div>
+
+                    <div class="flex-between mb-15">
+                        <h3 class="font-heading text-lg text-white">Équipement (Boutique)</h3>
+                        <div class="wallet-badge glass-mirror p-5-10 rounded-pill border-neon-glow">
+                            <i class="fas fa-wallet text-neon mr-5"></i><span id="shop-wallet-xp" class="text-white font-bold text-xs">0 XP</span>
+                        </div>
+                    </div>
+
+                    <div class="shop-grid grid-cols-2 gap-15">
+                        <div class="shop-item glass-mirror p-20 rounded-xl text-center cursor-pointer transition-transform hover-scale" onclick="buyItem('T-Shirt Hébert', 1000)">
+                            <div class="item-icon-huge text-4xl text-muted mb-15"><i class="fas fa-tshirt"></i></div>
+                            <strong class="block text-sm text-white font-heading mb-5">T-Shirt Hébert</strong>
+                            <span class="text-neon text-xs font-bold bg-neon-dim p-5-10 rounded-pill inline-block">1000 XP</span>
+                        </div>
+                        <div class="shop-item glass-mirror p-20 rounded-xl text-center cursor-pointer transition-transform hover-scale" onclick="buyItem('Chaussures Trail', 2500)">
+                            <div class="item-icon-huge text-4xl text-muted mb-15"><i class="fas fa-shoe-prints"></i></div>
+                            <strong class="block text-sm text-white font-heading mb-5">Chaussures Trail</strong>
+                            <span class="text-neon text-xs font-bold bg-neon-dim p-5-10 rounded-pill inline-block">2500 XP</span>
+                        </div>
+                        <div class="shop-item glass-mirror p-20 rounded-xl text-center cursor-pointer transition-transform hover-scale" onclick="buyItem('Gourde Survie', 500)">
+                            <div class="item-icon-huge text-4xl text-muted mb-15"><i class="fas fa-flask"></i></div>
+                            <strong class="block text-sm text-white font-heading mb-5">Gourde Survie</strong>
+                            <span class="text-neon text-xs font-bold bg-neon-dim p-5-10 rounded-pill inline-block">500 XP</span>
+                        </div>
+                        <div class="shop-item glass-mirror p-20 rounded-xl text-center cursor-pointer transition-transform hover-scale" onclick="buyItem('Corde d\'escalade', 4000)">
+                            <div class="item-icon-huge text-4xl text-muted mb-15"><i class="fas fa-bezier-curve"></i></div>
+                            <strong class="block text-sm text-white font-heading mb-5">Corde d'escalade</strong>
+                            <span class="text-neon text-xs font-bold bg-neon-dim p-5-10 rounded-pill inline-block">4000 XP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-spacer h-100"></div>
+            </section>
+
+            <section id="view-learn" class="app-view absolute inset-0 overflow-y-auto pb-120 pt-80 hidden">
+                <div class="hero-header glass-panel p-20-30 mb-20 rounded-b-3xl border-b-glass">
+                    <h2 class="font-heading text-3xl text-white mb-10">Académie<br><span class="text-neon">Hébertiste</span></h2>
+                    <p class="text-muted text-sm line-height-15">La théorie est indispensable pour une pratique sécurisée en milieu naturel.</p>
+                </div>
+
+                <div class="content-padding p-0-20">
+                    
+                    <div class="featured-article glass-mirror p-20 rounded-xl mb-30 border-neon-glow cursor-pointer relative overflow-hidden" onclick="openArticle('fondamentaux')">
+                        <div class="absolute inset-0 bg-neon opacity-10"></div>
+                        <span class="badge-glass text-neon text-xxs font-bold uppercase tracking-widest mb-10 inline-block p-5-10 rounded-pill border-neon">À la une</span>
+                        <h3 class="font-heading text-xl text-white mb-10 relative z-10">Les 10 Familles de la Méthode</h3>
+                        <p class="text-xs text-muted line-height-15 mb-15 relative z-10">Découvrez les fondations du mouvement naturel. Marcher, courir, sauter, grimper...</p>
+                        <div class="flex-align gap-5 text-neon text-xs font-bold relative z-10">LIRE L'ARTICLE <i class="fas fa-arrow-right"></i></div>
+                    </div>
+
+                    <h3 class="font-heading text-lg text-white mb-15">Tous les chapitres</h3>
+                    
+                    <div class="wiki-list flex-col gap-15">
+                        <div class="wiki-item glass-mirror p-15 rounded-xl flex-align gap-20 cursor-pointer transition-bg" onclick="openArticle('physio')">
+                            <div class="wiki-icon-box bg-dark-dim w-50 h-50 rounded-lg flex-center border-glass"><i class="fas fa-heartbeat text-neon text-xl"></i></div>
+                            <div class="wiki-text flex-1">
+                                <strong class="text-white font-heading text-sm block mb-5">Physiologie de l'effort</strong>
+                                <p class="text-xs text-muted m-0 line-height-15">Comprendre la proprioception en forêt.</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </div>
+                        <div class="wiki-item glass-mirror p-15 rounded-xl flex-align gap-20 cursor-pointer transition-bg" onclick="openArticle('survie')">
+                            <div class="wiki-icon-box bg-dark-dim w-50 h-50 rounded-lg flex-center border-glass"><i class="fas fa-campground text-neon text-xl"></i></div>
+                            <div class="wiki-text flex-1">
+                                <strong class="text-white font-heading text-sm block mb-5">Règles de Survie</strong>
+                                <p class="text-xs text-muted m-0 line-height-15">Prévention, faune, flore et sécurité.</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </div>
+                        <div class="wiki-item glass-mirror p-15 rounded-xl flex-align gap-20 cursor-pointer transition-bg" onclick="openArticle('histoire')">
+                            <div class="wiki-icon-box bg-dark-dim w-50 h-50 rounded-lg flex-center border-glass"><i class="fas fa-ship text-neon text-xl"></i></div>
+                            <div class="wiki-text flex-1">
+                                <strong class="text-white font-heading text-sm block mb-5">L'Histoire de G. Hébert</strong>
+                                <p class="text-xs text-muted m-0 line-height-15">De la marine à la création de la méthode.</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </div>
+                        <div class="wiki-item glass-mirror p-15 rounded-xl flex-align gap-20 cursor-pointer transition-bg" onclick="openArticle('nutrition')">
+                            <div class="wiki-icon-box bg-dark-dim w-50 h-50 rounded-lg flex-center border-glass"><i class="fas fa-apple-alt text-neon text-xl"></i></div>
+                            <div class="wiki-text flex-1">
+                                <strong class="text-white font-heading text-sm block mb-5">Nutrition Outdoor</strong>
+                                <p class="text-xs text-muted m-0 line-height-15">Hydratation et gestion des calories.</p>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-spacer h-100"></div>
+            </section>
+
+            <section id="view-social" class="app-view absolute inset-0 overflow-y-auto pb-120 pt-80 hidden">
+                <div class="hero-header glass-panel p-20-30 mb-20 rounded-b-3xl border-b-glass">
+                    <h2 class="font-heading text-3xl text-white mb-15">Le Réseau<br><span class="text-neon">STAPS</span></h2>
+                    
+                    <div class="segmented-control glass-mirror p-5 rounded-lg flex gap-5">
+                        <button class="seg-btn flex-1 bg-transparent border-none text-white text-sm font-bold py-10 rounded-md active transition-bg" onclick="switchSocialTab('feed', this)">Actualités</button>
+                        <button class="seg-btn flex-1 bg-transparent border-none text-muted text-sm font-bold py-10 rounded-md transition-bg" onclick="switchSocialTab('leaderboard', this)">Classement</button>
+                    </div>
+                </div>
+
+                <div class="content-padding p-0-20">
+                    
+                    <div id="social-tab-feed" class="social-content-tab active">
+                        <div class="create-post-box glass-mirror p-15 rounded-xl flex-align gap-15 mb-25 cursor-pointer" onclick="showToast('Bientôt', 'La création de posts personnalisés arrive à la prochaine MAJ.')">
+                            <div class="avatar-sm w-40 h-40 rounded-full bg-neon flex-center text-dark font-bold">F</div>
+                            <span class="text-muted text-sm flex-1">Partagez votre dernière expédition...</span>
+                            <i class="fas fa-image text-neon text-lg"></i>
+                        </div>
+                        
+                        <div id="social-feed-container" class="flex-col gap-20">
+                            </div>
+                    </div>
+
+                    <div id="social-tab-leaderboard" class="social-content-tab hidden">
+                        
+                        <div class="podium-container flex-center items-end gap-10 h-200 mt-20 mb-40">
+                            <div class="podium-col flex-col flex-align w-30 relative">
+                                <div class="avatar-podium w-50 h-50 rounded-full border-solid border-3 border-silver bg-dark-dim flex-center text-white font-bold text-lg mb-10 z-10">M</div>
+                                <div class="podium-block bg-glass-gradient w-100 h-80 rounded-t-lg border-t-silver flex-center flex-col relative overflow-hidden">
+                                    <span class="text-silver font-heading text-xl font-black">2</span>
+                                </div>
+                                <span class="text-white text-xs font-bold mt-10">Marc</span>
+                                <span class="text-neon text-xxs font-bold">8.5k XP</span>
+                            </div>
+                            
+                            <div class="podium-col flex-col flex-align w-35 relative">
+                                <i class="fas fa-crown text-warning text-2xl absolute top-minus-30 pulse-anim"></i>
+                                <div class="avatar-podium w-60 h-60 rounded-full border-solid border-4 border-warning bg-dark-dim flex-center text-white font-bold text-xl mb-10 z-10 shadow-gold">L</div>
+                                <div class="podium-block bg-glass-gradient w-100 h-120 rounded-t-lg border-t-warning flex-center flex-col relative overflow-hidden">
+                                    <span class="text-warning font-heading text-3xl font-black">1</span>
+                                </div>
+                                <span class="text-white text-sm font-bold mt-10">Léa M.</span>
+                                <span class="text-neon text-xs font-bold">10.2k XP</span>
+                            </div>
+
+                            <div class="podium-col flex-col flex-align w-30 relative">
+                                <div class="avatar-podium w-50 h-50 rounded-full border-solid border-3 border-bronze bg-dark-dim flex-center text-white font-bold text-lg mb-10 z-10">T</div>
+                                <div class="podium-block bg-glass-gradient w-100 h-60 rounded-t-lg border-t-bronze flex-center flex-col relative overflow-hidden">
+                                    <span class="text-bronze font-heading text-xl font-black">3</span>
+                                </div>
+                                <span class="text-white text-xs font-bold mt-10">Thomas</span>
+                                <span class="text-neon text-xxs font-bold">7.1k XP</span>
+                            </div>
+                        </div>
+
+                        <div class="leaderboard-list glass-mirror rounded-xl overflow-hidden">
+                            <div class="lb-item flex-between p-15 border-b-glass">
+                                <div class="flex-align gap-15">
+                                    <span class="text-muted font-bold w-20 text-center">4</span>
+                                    <div class="w-30 h-30 rounded-full bg-dark-dim flex-center text-xs font-bold">S</div>
+                                    <span class="text-white text-sm font-bold">Sarah J.</span>
+                                </div>
+                                <span class="text-neon text-xs font-bold">6,800 XP</span>
+                            </div>
+                            
+                            <div class="lb-item flex-between p-15 border-b-glass bg-neon-dim border-l-neon">
+                                <div class="flex-align gap-15">
+                                    <span class="text-neon font-bold w-20 text-center">5</span>
+                                    <div class="w-30 h-30 rounded-full bg-neon flex-center text-dark text-xs font-bold">F</div>
+                                    <span class="text-white text-sm font-bold">Flavien R. (Toi)</span>
+                                </div>
+                                <span class="text-neon text-xs font-bold" id="lb-my-xp">0 XP</span>
+                            </div>
+
+                            <div class="lb-item flex-between p-15">
+                                <div class="flex-align gap-15">
+                                    <span class="text-muted font-bold w-20 text-center">6</span>
+                                    <div class="w-30 h-30 rounded-full bg-dark-dim flex-center text-xs font-bold">A</div>
+                                    <span class="text-white text-sm font-bold">Antoine P.</span>
+                                </div>
+                                <span class="text-neon text-xs font-bold">4,200 XP</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="scroll-spacer h-100"></div>
+            </section>
+
+            <section id="view-profile" class="app-view absolute inset-0 overflow-y-auto pb-120 pt-80 hidden">
+                
+                <div class="profile-hero flex-col flex-center pt-20 pb-30 relative border-b-glass mb-20 bg-gradient-dark">
+                    <div class="avatar-giant-wrapper relative mb-15">
+                        <svg class="level-ring absolute inset-0 w-100 h-100" viewBox="0 0 120 120" style="transform: rotate(-90deg);">
+                            <circle cx="60" cy="60" r="56" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="4"></circle>
+                            <circle cx="60" cy="60" r="56" fill="none" stroke="var(--neon-green)" stroke-width="4" stroke-dasharray="351.8" id="profile-ring-fill" stroke-dashoffset="351.8" style="transition: stroke-dashoffset 1s ease-out;"></circle>
+                        </svg>
+                        <div class="avatar-giant w-100 h-100 rounded-full overflow-hidden border-solid border-4 border-transparent p-5">
+                            <div class="w-100 h-100 rounded-full bg-dark-dim flex-center text-4xl text-neon"><i class="fas fa-user-ninja"></i></div>
+                        </div>
+                        <div class="level-badge absolute bottom-minus-10 left-50 translate-x-minus-50 bg-neon text-dark font-heading font-black text-xs px-10 py-2 rounded-pill border-solid border-2 border-dark z-10">
+                            LVL <span id="profile-level-badge">1</span>
+                        </div>
+                    </div>
+                    
+                    <h2 class="font-heading text-2xl text-white mb-5">Flavien R.</h2>
+                    <p class="text-muted text-xs uppercase tracking-widest mb-20">L2 Maths • Rennes</p>
+
+                    <div class="xp-counter flex-align gap-10 bg-dark-dim px-20 py-10 rounded-pill border-glass">
+                        <i class="fas fa-star text-warning"></i>
+                        <span class="text-white text-sm font-bold"><span id="profile-xp-curr">0</span> / 500 XP</span>
+                    </div>
+                </div>
+
+                <div class="content-padding p-0-20">
+                    
+                    <div class="stats-grid-3 grid-cols-3 gap-10 mb-30">
+                        <div class="stat-box glass-mirror p-15 flex-col flex-center text-center rounded-xl">
+                            <i class="fas fa-tree text-neon text-xl mb-10"></i>
+                            <strong class="text-xl text-white font-heading mb-5" id="stat-val-parcours">0</strong>
+                            <span class="text-xxs text-muted uppercase tracking-widest">Forêts</span>
+                        </div>
+                        <div class="stat-box glass-mirror p-15 flex-col flex-center text-center rounded-xl">
+                            <i class="fas fa-fire text-warning text-xl mb-10"></i>
+                            <strong class="text-xl text-white font-heading mb-5" id="stat-val-kcal">0</strong>
+                            <span class="text-xxs text-muted uppercase tracking-widest">Kcal</span>
+                        </div>
+                        <div class="stat-box glass-mirror p-15 flex-col flex-center text-center rounded-xl">
+                            <i class="fas fa-dumbbell text-info text-xl mb-10"></i>
+                            <strong class="text-xl text-white font-heading mb-5" id="stat-val-ateliers">0</strong>
+                            <span class="text-xxs text-muted uppercase tracking-widest">Ateliers</span>
+                        </div>
+                    </div>
+
+                    <h3 class="font-heading text-lg text-white mb-15">Mon Tableau de bord</h3>
+                    
+                    <div class="menu-list flex-col gap-10 mb-30">
+                        <button class="menu-item glass-mirror p-15-20 rounded-xl border-none flex-between w-100 cursor-pointer transition-bg hover-bg-light" onclick="openProfileSubpage('health')">
+                            <div class="flex-align gap-15">
+                                <div class="icon-wrapper w-35 h-35 rounded-lg bg-red-dim flex-center"><i class="fas fa-weight text-danger"></i></div>
+                                <div class="text-left flex-col">
+                                    <strong class="text-white text-sm font-body">Suivi Santé & Poids</strong>
+                                    <span class="text-muted text-xs">Objectif: 80kg • Actuel: 96.2kg</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </button>
+
+                        <button class="menu-item glass-mirror p-15-20 rounded-xl border-none flex-between w-100 cursor-pointer transition-bg hover-bg-light" onclick="openProfileSubpage('history')">
+                            <div class="flex-align gap-15">
+                                <div class="icon-wrapper w-35 h-35 rounded-lg bg-blue-dim flex-center"><i class="fas fa-history text-info"></i></div>
+                                <div class="text-left flex-col">
+                                    <strong class="text-white text-sm font-body">Historique des expéditions</strong>
+                                    <span class="text-muted text-xs">Toutes vos séances validées</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </button>
+
+                        <button class="menu-item glass-mirror p-15-20 rounded-xl border-none flex-between w-100 cursor-pointer transition-bg hover-bg-light" onclick="openProfileSubpage('inventory')">
+                            <div class="flex-align gap-15">
+                                <div class="icon-wrapper w-35 h-35 rounded-lg bg-warning-dim flex-center"><i class="fas fa-box-open text-warning"></i></div>
+                                <div class="text-left flex-col">
+                                    <strong class="text-white text-sm font-body">Mon Équipement</strong>
+                                    <span class="text-muted text-xs">Boutique & Récompenses</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-chevron-right text-muted opacity-50"></i>
+                        </button>
+                    </div>
+
+                    <h3 class="font-heading text-lg text-white mb-15">Paramètres</h3>
+                    <div class="settings-list glass-mirror rounded-xl overflow-hidden mb-40">
+                        <div class="setting-item flex-between p-15-20 border-b-glass">
+                            <div class="flex-align gap-15">
+                                <i class="fas fa-moon text-muted w-20 text-center"></i>
+                                <span class="text-white text-sm font-bold">Mode Nuit</span>
+                            </div>
+                            <div class="toggle-switch active"><div class="toggle-knob"></div></div>
+                        </div>
+                        <div class="setting-item flex-between p-15-20 border-b-glass">
+                            <div class="flex-align gap-15">
+                                <i class="fas fa-camera text-muted w-20 text-center"></i>
+                                <span class="text-white text-sm font-bold">Haute Qualité Photo</span>
+                            </div>
+                            <div class="toggle-switch"><div class="toggle-knob"></div></div>
+                        </div>
+                        <div class="setting-item flex-between p-15-20 cursor-pointer hover-bg-light transition-bg" onclick="resetAppConfirm()">
+                            <div class="flex-align gap-15">
+                                <i class="fas fa-skull text-danger w-20 text-center"></i>
+                                <span class="text-danger text-sm font-bold">Réinitialiser les données</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="scroll-spacer h-100"></div>
+            </section>
+        </main>
+
+        <section id="universal-subpage" class="fullscreen-overlay hidden z-supreme bg-deep flex-col transition-transform-slide">
+            <header class="subpage-header glass-header flex-between p-15-20 border-b-glass relative z-10">
+                <button class="icon-btn text-neon p-10 cursor-pointer flex-align gap-5" onclick="closeSubpage()">
+                    <i class="fas fa-chevron-left text-lg"></i> <span class="text-sm font-bold">Retour</span>
+                </button>
+                <h2 id="subpage-header-title" class="font-heading text-lg text-white m-0 absolute left-50 translate-x-minus-50">Titre</h2>
+                <div class="w-60"></div></header>
+            
+            <div id="subpage-body-content" class="subpage-content flex-1 overflow-y-auto p-20 pb-100 relative z-base">
+                </div>
+        </section>
+
+        <section id="session-pre-flight" class="fullscreen-overlay hidden z-supreme bg-deep flex-col transition-transform-slide">
+            <div class="pre-flight-cover relative h-35vh w-100 overflow-hidden">
+                <div id="pre-cover-image" class="absolute inset-0 bg-cover bg-center transition-transform-slow"></div>
+                <div class="absolute inset-0 bg-gradient-to-top"></div>
+                
+                <button class="glass-btn-circular absolute top-20 right-20 z-10" onclick="closeSessionOverlay('session-pre-flight')">
+                    <i class="fas fa-times text-white text-lg"></i>
+                </button>
+                
+                <div class="absolute bottom-20 left-20 z-10">
+                    <span id="pre-badge-type" class="badge-glass bg-neon-dim text-neon text-xs font-bold uppercase tracking-widest px-10 py-4 rounded-pill mb-10 inline-block border-neon">TYPE</span>
+                    <h1 id="pre-park-title" class="font-heading text-3xl text-white m-0 text-shadow">Nom du Parc</h1>
+                </div>
+            </div>
+
+            <div class="pre-flight-details flex-1 bg-deep relative z-10 p-20 pb-100 overflow-y-auto rounded-t-3xl mt-minus-20">
+                <p id="pre-park-desc" class="text-muted text-sm line-height-15 mb-25">Description détaillée du parc et de ce qui vous y attend.</p>
+                
+                <div class="stats-row flex-between bg-dark-dim p-15 rounded-xl border-glass mb-30">
+                    <div class="stat-col flex-col flex-center w-33 border-r-glass">
+                        <i class="fas fa-stopwatch text-muted mb-5 text-lg"></i>
+                        <span id="pre-val-time" class="text-white font-bold text-sm">0m</span>
+                    </div>
+                    <div class="stat-col flex-col flex-center w-33 border-r-glass">
+                        <i class="fas fa-fire text-warning mb-5 text-lg"></i>
+                        <span id="pre-val-kcal" class="text-white font-bold text-sm">0</span>
+                    </div>
+                    <div class="stat-col flex-col flex-center w-33">
+                        <i class="fas fa-layer-group text-neon mb-5 text-lg"></i>
+                        <span id="pre-val-steps" class="text-white font-bold text-sm">0</span>
+                    </div>
+                </div>
+
+                <h3 class="font-heading text-lg text-white mb-20 border-b-glass pb-10">Reconnaissance des ateliers</h3>
+                <div id="pre-timeline-container" class="timeline-container pl-10 border-l-glass ml-10">
+                    </div>
+            </div>
+
+            <div class="fixed-action-bar absolute bottom-0 w-100 p-20 bg-glass-gradient border-t-glass z-20">
+                <button class="btn-glass-primary w-100 font-bold text-lg pulse-anim shadow-neon" onclick="startWarmupPhase()">PÉNÉTRER LA FORÊT</button>
+            </div>
+        </section>
+
+        <section id="session-warmup" class="fullscreen-overlay hidden z-supreme bg-black flex-center flex-col transition-fade p-20 text-center">
+            <div class="glass-mirror p-40 rounded-2xl w-100 max-w-400 border-warning-glow relative overflow-hidden">
+                <div class="absolute top-minus-50 right-minus-50 w-150 h-150 bg-warning rounded-full filter-blur-50 opacity-20"></div>
+                <i class="fas fa-fire-alt text-warning text-6xl mb-20 pulse-anim"></i>
+                <h2 class="font-heading text-3xl text-white mb-10">Échauffement</h2>
+                <p class="text-muted text-sm line-height-15 mb-30">Mobilisez vos poignets, chevilles et genoux. L'instabilité du terrain ne pardonne pas les articulations froides.</p>
+                
+                <div class="timer-box bg-dark-dim p-20 rounded-xl mb-30 border-glass">
+                    <span id="timer-warmup-display" class="font-heading text-6xl text-white font-black tracking-widest">00:30</span>
+                </div>
+                
+                <button class="btn-glass-outline w-100 text-sm font-bold text-muted border-muted" onclick="skipWarmup()">PASSER L'ÉCHAUFFEMENT</button>
+            </div>
+        </section>
+
+        <section id="session-instruction" class="fullscreen-overlay hidden z-supreme bg-dark-transparent flex-center flex-col p-20 transition-fade">
+            <div class="instruction-card glass-heavy p-30-20 rounded-2xl w-100 max-w-400 border-neon-glow relative overflow-hidden text-center">
+                <div class="glass-diagonal-reflection"></div>
+                
+                <div class="step-badge inline-block bg-neon-dim border-neon px-15 py-5 rounded-pill mb-20">
+                    <span class="text-neon font-bold text-xs tracking-widest uppercase">Atelier <span id="instr-step-num">1</span></span>
+                </div>
+                
+                <h2 id="instr-title" class="font-heading text-3xl text-white mb-20 line-height-12">Titre de l'Atelier</h2>
+                <div class="divider-neon w-50 h-3 bg-neon mx-auto mb-20 rounded-pill"></div>
+                
+                <p id="instr-desc" class="text-muted text-lg line-height-15 mb-30 text-left bg-dark-dim p-15 rounded-xl border-l-neon">Description précise de ce qu'il faut faire dans la forêt.</p>
+                
+                <div class="alert-safety bg-danger-dim border-danger p-15 rounded-xl flex-align gap-15 text-left mb-30">
+                    <i class="fas fa-triangle-exclamation text-danger text-2xl"></i>
+                    <p class="text-danger text-xs m-0">Testez toujours l'adhérence du sol et la solidité des branches avant d'y transférer votre poids.</p>
+                </div>
+
+                <button class="btn-glass-primary w-100 font-bold text-lg shadow-neon" onclick="startCameraPhase()">J'AI COMPRIS</button>
+            </div>
+        </section>
+
+        <section id="session-camera" class="fullscreen-overlay hidden z-ultimate bg-black flex-col transition-fade">
+            
+            <div class="cam-top-bar absolute top-0 w-100 p-20 flex-between z-10 bg-gradient-to-bottom">
+                <button class="glass-btn-circular" onclick="abortSessionConfirm()">
+                    <i class="fas fa-times text-white text-lg"></i>
+                </button>
+                <div class="rec-indicator bg-dark-dim border-glass px-15 py-8 rounded-pill flex-align gap-10">
+                    <div class="rec-dot w-10 h-10 bg-danger rounded-full blink-anim"></div>
+                    <span class="text-white font-bold text-xs tracking-widest">EN COURS</span>
+                </div>
+            </div>
+
+            <video id="webcam-feed" class="absolute inset-0 w-100 h-100 object-cover bg-deep" autoplay playsinline></video>
+            
+            <div class="cam-viewfinder absolute inset-0 pointer-events-none z-5 flex-center">
+                <div class="focus-box relative w-280 h-400">
+                    <div class="focus-corner top-left absolute top-0 left-0 w-30 h-30 border-t-2 border-l-2 border-white opacity-70"></div>
+                    <div class="focus-corner top-right absolute top-0 right-0 w-30 h-30 border-t-2 border-r-2 border-white opacity-70"></div>
+                    <div class="focus-corner bottom-left absolute bottom-0 left-0 w-30 h-30 border-b-2 border-l-2 border-white opacity-70"></div>
+                    <div class="focus-corner bottom-right absolute bottom-0 right-0 w-30 h-30 border-b-2 border-r-2 border-white opacity-70"></div>
+                    <div class="crosshair absolute top-50 left-50 translate-minus-50 w-20 h-20 opacity-50">
+                        <div class="absolute top-50 left-0 w-100 h-1 bg-white translate-y-minus-50"></div>
+                        <div class="absolute top-0 left-50 w-1 h-100 bg-white translate-x-minus-50"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cam-bottom-bar absolute bottom-0 w-100 p-20-30 pb-50 flex-col flex-center z-10 bg-gradient-to-top">
+                <div class="photo-consigne glass-mirror border-neon-glow px-20 py-12 rounded-pill mb-30 flex-align gap-10 max-w-90">
+                    <i class="fas fa-camera text-neon text-lg"></i>
+                    <span id="cam-instruction-text" class="text-white font-bold text-sm text-shadow text-truncate">Consigne de la photo à prendre.</span>
+                </div>
+                
+                <button class="shutter-btn w-80 h-80 rounded-full border-solid border-4 border-white bg-transparent flex-center cursor-pointer transition-transform" onclick="captureValidationPhoto()">
+                    <div class="shutter-inner w-64 h-64 rounded-full bg-white transition-bg"></div>
+                </button>
+            </div>
+        </section>
+
+        <section id="session-success" class="fullscreen-overlay hidden z-supreme bg-dark-transparent flex-center p-20 transition-fade">
+            <div class="success-card glass-heavy border-neon-glow p-40-20 rounded-2xl w-100 max-w-400 text-center scale-in-anim">
+                <i class="fas fa-check-circle text-neon text-7xl mb-20 pulse-glow-anim rounded-full"></i>
+                <h2 class="font-heading text-3xl text-white mb-10">Atelier Validé</h2>
+                <div class="xp-gain font-heading font-black text-5xl text-neon mb-20">+<span id="success-xp-val">0</span> XP</div>
+                <p class="text-muted text-sm line-height-15 mb-40">Votre action a été enregistrée. Préparez-vous pour le prochain obstacle.</p>
+                <button class="btn-glass-primary w-100 font-bold text-lg" onclick="goToNextStep()">ÉTAPE SUIVANTE <i class="fas fa-arrow-right ml-10"></i></button>
+            </div>
+        </section>
+
+        <section id="session-stretching" class="fullscreen-overlay hidden z-supreme bg-black flex-center flex-col transition-fade p-20 text-center">
+            <div class="glass-mirror p-40 rounded-2xl w-100 max-w-400 border-info-glow relative overflow-hidden">
+                <div class="absolute top-minus-50 left-minus-50 w-150 h-150 bg-info rounded-full filter-blur-50 opacity-20"></div>
+                <i class="fas fa-child text-info text-6xl mb-20"></i>
+                <h2 class="font-heading text-3xl text-white mb-10">Retour au calme</h2>
+                <p class="text-muted text-sm line-height-15 mb-30">Étirez doucement les muscles sollicités. Hydratez-vous abondamment.</p>
+                
+                <div class="timer-box bg-dark-dim p-20 rounded-xl mb-30 border-glass">
+                    <span id="timer-stretch-display" class="font-heading text-6xl text-info font-black tracking-widest">00:30</span>
+                </div>
+                
+                <button class="btn-glass-primary bg-info w-100 font-bold text-lg text-dark border-none" onclick="concludeSession()">TERMINER L'EXPÉDITION</button>
+            </div>
+        </section>
+
+        <nav id="bottom-tab-bar" class="glass-nav absolute bottom-0 w-100 h-90 flex-between p-0-10 pb-15 z-high border-t-glass">
+            <button class="nav-tab flex-1 flex-col flex-center gap-5 text-muted border-none bg-transparent cursor-pointer transition-color active" onclick="navigateMain('view-explore', this)">
+                <i class="fas fa-tree text-2xl mb-2 transition-transform"></i>
+                <span class="text-xxs font-bold uppercase tracking-widest">Forêts</span>
+            </button>
+            <button class="nav-tab flex-1 flex-col flex-center gap-5 text-muted border-none bg-transparent cursor-pointer transition-color" onclick="navigateMain('view-challenges', this)">
+                <i class="fas fa-crosshairs text-2xl mb-2 transition-transform"></i>
+                <span class="text-xxs font-bold uppercase tracking-widest">Défis</span>
+            </button>
+            
+            <div class="nav-center-action relative w-70 flex-center">
+                <button class="center-play-btn absolute bottom-10 w-65 h-65 rounded-full bg-deep border-glass flex-center cursor-pointer shadow-neon transition-transform" onclick="navigateMain('view-explore', document.querySelectorAll('.nav-tab')[0]); document.getElementById('search-input').focus();">
+                    <div class="inner-neon-circle w-55 h-55 rounded-full bg-neon flex-center text-dark text-2xl pl-4">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </button>
+            </div>
+            
+            <button class="nav-tab flex-1 flex-col flex-center gap-5 text-muted border-none bg-transparent cursor-pointer transition-color" onclick="navigateMain('view-learn', this)">
+                <i class="fas fa-book-open text-2xl mb-2 transition-transform"></i>
+                <span class="text-xxs font-bold uppercase tracking-widest">Savoir</span>
+            </button>
+            <button class="nav-tab flex-1 flex-col flex-center gap-5 text-muted border-none bg-transparent cursor-pointer transition-color" onclick="navigateMain('view-profile', this)">
+                <i class="fas fa-user text-2xl mb-2 transition-transform"></i>
+                <span class="text-xxs font-bold uppercase tracking-widest">Profil</span>
+            </button>
+        </nav>
+
+    </div>
+    <script src="script.js"></script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
