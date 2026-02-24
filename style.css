@@ -1,0 +1,1052 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   HEBERMOOV - ULTIMATE GLASS FOREST DESIGN SYSTEM
+   Auteur: Flavien R.
+   Description: Style principal de l'application SPA. Basé sur les guidelines 
+   Apple (Squircles, Glassmorphism, Typographie fluide, Animations 60fps).
+   ========================================================================== */
+
+/* ==========================================================================
+   01. VARIABLES & DESIGN TOKENS
+   ========================================================================== */
+:root {
+    /* --- Couleurs de Base --- */
+    --bg-deep: #020a06;
+    --bg-dark-dim: rgba(0, 0, 0, 0.4);
+    --bg-black: #000000;
+    --bg-transparent: transparent;
+    
+    /* --- Couleurs de Marque (Vert Néon Forêt) --- */
+    --neon-green: #52B788;
+    --neon-green-dark: #40916c;
+    --neon-green-light: #74c69d;
+    --neon-dim: rgba(82, 183, 136, 0.15);
+    --neon-glow: rgba(82, 183, 136, 0.4);
+    --neon-glow-heavy: rgba(82, 183, 136, 0.6);
+
+    /* --- Couleurs Sémantiques --- */
+    --danger: #ff4757;
+    --danger-dim: rgba(255, 71, 87, 0.15);
+    --warning: #ffa502;
+    --warning-dim: rgba(255, 165, 2, 0.15);
+    --info: #1e90ff;
+    --info-dim: rgba(30, 144, 255, 0.15);
+    
+    /* --- Typographie --- */
+    --text-white: #ffffff;
+    --text-muted: #8aa196;
+    --text-dark: #020a06;
+    --text-silver: #c0c0c0;
+    --text-bronze: #cd7f32;
+
+    --font-heading: 'Montserrat', system-ui, sans-serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    
+    /* --- Espacements (Scale x5) --- */
+    --sp-0: 0px;
+    --sp-5: 5px;
+    --sp-10: 10px;
+    --sp-15: 15px;
+    --sp-20: 20px;
+    --sp-25: 25px;
+    --sp-30: 30px;
+    --sp-40: 40px;
+    --sp-50: 50px;
+    --sp-80: 80px;
+    --sp-100: 100px;
+    --sp-120: 120px;
+    
+    /* --- Tailles (Width/Height) --- */
+    --sz-10: 10px;
+    --sz-20: 20px;
+    --sz-30: 30px;
+    --sz-35: 35px;
+    --sz-40: 40px;
+    --sz-50: 50px;
+    --sz-55: 55px;
+    --sz-60: 60px;
+    --sz-65: 65px;
+    --sz-70: 70px;
+    --sz-80: 80px;
+    --sz-90: 90px;
+    --sz-100: 100px;
+    --sz-150: 150px;
+    --sz-200: 200px;
+    --sz-280: 280px;
+    --sz-400: 400px;
+    
+    /* --- Bordures & Arrondis (Apple Squircles) --- */
+    --rad-sm: 8px;
+    --rad-md: 12px;
+    --rad-lg: 16px;
+    --rad-xl: 24px;
+    --rad-2xl: 32px;
+    --rad-3xl: 40px;
+    --rad-pill: 9999px;
+    --rad-full: 50%;
+    
+    /* --- Z-Indexes --- */
+    --z-base: 1;
+    --z-high: 100;
+    --z-highest: 1000;
+    --z-supreme: 5000;
+    --z-ultimate: 9999;
+    
+    /* --- iOS Safe Areas --- */
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+/* ==========================================================================
+   02. RESET & GLOBAL BASE
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    font-family: inherit;
+}
+
+html {
+    font-size: 16px;
+    background-color: var(--bg-deep);
+}
+
+body {
+    /* ... tes autres trucs ... */
+    width: 100vw;
+    height: 100dvh; /* ICI : on remplace vh par dvh */
+    overflow: hidden;
+}
+
+#main-viewport { 
+    height: 100dvh; /* ICI AUSSI */
+    padding-top: 70px; 
+    overflow-y: auto; 
+    padding-bottom: 120px; 
+}
+
+#app-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 10;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+button {
+    outline: none;
+    font-family: inherit;
+}
+
+input {
+    font-family: inherit;
+}
+
+/* Cache la scrollbar globale mais garde la fonctionnalité */
+::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ==========================================================================
+   03. MOTEUR UTILITAIRE (UTILITY CLASSES)
+   ========================================================================== */
+   
+/* --- Affichage & Visibilité --- */
+.hidden { display: none !important; }
+.block { display: block; }
+.inline-block { display: inline-block; }
+
+/* --- Flexbox --- */
+.flex { display: flex; }
+.flex-col { display: flex; flex-direction: column; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-align { display: flex; align-items: center; }
+.flex-center { display: flex; justify-content: center; align-items: center; }
+.flex-1 { flex: 1; }
+.items-end { align-items: flex-end; }
+
+/* --- Grid --- */
+.grid { display: grid; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+/* --- Gaps --- */
+.gap-5 { gap: var(--sp-5); }
+.gap-10 { gap: var(--sp-10); }
+.gap-15 { gap: var(--sp-15); }
+.gap-20 { gap: var(--sp-20); }
+
+/* --- Marges (Margins) --- */
+.m-0 { margin: var(--sp-0); }
+.mt-5 { margin-top: var(--sp-5); }
+.mt-10 { margin-top: var(--sp-10); }
+.mt-15 { margin-top: var(--sp-15); }
+.mt-20 { margin-top: var(--sp-20); }
+.mt-30 { margin-top: var(--sp-30); }
+.mt-40 { margin-top: var(--sp-40); }
+.mt-minus-20 { margin-top: -20px; }
+.mb-2 { margin-bottom: 2px; }
+.mb-5 { margin-bottom: var(--sp-5); }
+.mb-10 { margin-bottom: var(--sp-10); }
+.mb-15 { margin-bottom: var(--sp-15); }
+.mb-20 { margin-bottom: var(--sp-20); }
+.mb-25 { margin-bottom: var(--sp-25); }
+.mb-30 { margin-bottom: var(--sp-30); }
+.mb-40 { margin-bottom: var(--sp-40); }
+.ml-10 { margin-left: var(--sp-10); }
+.ml-15 { margin-left: var(--sp-15); }
+.mr-5 { margin-right: var(--sp-5); }
+.mr-10 { margin-right: var(--sp-10); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* --- Espacements Internes (Paddings) --- */
+.p-0 { padding: var(--sp-0); }
+.p-5 { padding: var(--sp-5); }
+.p-10 { padding: var(--sp-10); }
+.p-15 { padding: var(--sp-15); }
+.p-20 { padding: var(--sp-20); }
+.p-30 { padding: var(--sp-30); }
+.p-40 { padding: var(--sp-40); }
+.pt-20 { padding-top: var(--sp-20); }
+.pt-80 { padding-top: var(--sp-80); }
+.pb-10 { padding-bottom: var(--sp-10); }
+.pb-15 { padding-bottom: var(--sp-15); }
+.pb-30 { padding-bottom: var(--sp-30); }
+.pb-50 { padding-bottom: var(--sp-50); }
+.pb-100 { padding-bottom: var(--sp-100); }
+.pb-120 { padding-bottom: var(--sp-120); }
+.pl-4 { padding-left: 4px; }
+.pl-10 { padding-left: var(--sp-10); }
+.pl-15 { padding-left: var(--sp-15); }
+.px-10 { padding-left: var(--sp-10); padding-right: var(--sp-10); }
+.px-15 { padding-left: var(--sp-15); padding-right: var(--sp-15); }
+.px-20 { padding-left: var(--sp-20); padding-right: var(--sp-20); }
+.py-2 { padding-top: 2px; padding-bottom: 2px; }
+.py-4 { padding-top: 4px; padding-bottom: 4px; }
+.py-5 { padding-top: var(--sp-5); padding-bottom: var(--sp-5); }
+.py-8 { padding-top: 8px; padding-bottom: 8px; }
+.py-10 { padding-top: var(--sp-10); padding-bottom: var(--sp-10); }
+.py-12 { padding-top: 12px; padding-bottom: 12px; }
+
+/* Padding composés haut/bas - gauche/droite */
+.p-5-10 { padding: var(--sp-5) var(--sp-10); }
+.p-5-15 { padding: var(--sp-5) var(--sp-15); }
+.p-10-15 { padding: var(--sp-10) var(--sp-15); }
+.p-15-20 { padding: var(--sp-15) var(--sp-20); }
+.p-20-30 { padding: var(--sp-20) var(--sp-30); }
+.p-30-20 { padding: var(--sp-30) var(--sp-20); }
+.p-40-20 { padding: var(--sp-40) var(--sp-20); }
+.p-0-10 { padding: var(--sp-0) var(--sp-10); }
+.p-0-20 { padding: var(--sp-0) var(--sp-20); }
+
+/* --- Dimensions (Width & Height) --- */
+.w-1 { width: 1px; }
+.w-3 { width: 3px; }
+.w-10 { width: var(--sz-10); }
+.w-20 { width: var(--sz-20); }
+.w-30 { width: var(--sz-30); }
+.w-35 { width: var(--sz-35); }
+.w-40 { width: var(--sz-40); }
+.w-50 { width: var(--sz-50); }
+.w-55 { width: var(--sz-55); }
+.w-60 { width: var(--sz-60); }
+.w-65 { width: var(--sz-65); }
+.w-70 { width: var(--sz-70); }
+.w-80 { width: var(--sz-80); }
+.w-100 { width: 100%; }
+.w-150 { width: var(--sz-150); }
+.w-280 { width: var(--sz-280); }
+.w-33 { width: 33.33%; }
+
+.h-1 { height: 1px; }
+.h-3 { height: 3px; }
+.h-4 { height: 4px; }
+.h-6 { height: 6px; }
+.h-10 { height: var(--sz-10); }
+.h-20 { height: var(--sz-20); }
+.h-30 { height: var(--sz-30); }
+.h-35 { height: var(--sz-35); }
+.h-40 { height: var(--sz-40); }
+.h-50 { height: var(--sz-50); }
+.h-55 { height: var(--sz-55); }
+.h-60 { height: var(--sz-60); }
+.h-65 { height: var(--sz-65); }
+.h-80 { height: var(--sz-80); }
+.h-90 { height: var(--sz-90); }
+.h-100 { height: 100%; }
+.h-120 { height: var(--sz-120); }
+.h-150 { height: var(--sz-150); }
+.h-200 { height: var(--sz-200); }
+.h-400 { height: var(--sz-400); }
+.h-35vh { height: 35vh; }
+
+.max-w-90 { max-width: 90%; }
+.max-w-400 { max-width: var(--sz-400); }
+
+/* --- Positionnement --- */
+.relative { position: relative; }
+.absolute { position: absolute; }
+.fixed { position: fixed; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.top-0 { top: 0; }
+.top-20 { top: var(--sp-20); }
+.top-50 { top: 50%; }
+.top-70 { top: var(--sz-70); }
+.top-minus-10 { top: -10px; }
+.top-minus-30 { top: -30px; }
+.top-minus-50 { top: -50px; }
+.bottom-0 { bottom: 0; }
+.bottom-10 { bottom: var(--sp-10); }
+.bottom-20 { bottom: var(--sp-20); }
+.bottom-minus-10 { bottom: -10px; }
+.left-0 { left: 0; }
+.left-20 { left: var(--sp-20); }
+.left-50 { left: 50%; }
+.left-minus-50 { left: -50px; }
+.right-0 { right: 0; }
+.right-20 { right: var(--sp-20); }
+.right-minus-50 { right: -50px; }
+
+/* --- Z-Index --- */
+.z-base { z-index: var(--z-base); }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-high { z-index: var(--z-high); }
+.z-highest { z-index: var(--z-highest); }
+.z-supreme { z-index: var(--z-supreme); }
+.z-ultimate { z-index: var(--z-ultimate); }
+
+/* --- Typographie (Text) --- */
+.text-xxs { font-size: 0.65rem; }
+.text-xs { font-size: 0.75rem; }
+.text-sm { font-size: 0.85rem; }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.1rem; }
+.text-xl { font-size: 1.3rem; }
+.text-2xl { font-size: 1.6rem; }
+.text-3xl { font-size: 2rem; }
+.text-4xl { font-size: 2.5rem; }
+.text-5xl { font-size: 3.5rem; }
+.text-6xl { font-size: 4.5rem; }
+.text-7xl { font-size: 5.5rem; }
+
+.font-heading { font-family: var(--font-heading); }
+.font-body { font-family: var(--font-body); }
+.font-bold { font-weight: 700; }
+.font-black { font-weight: 900; }
+
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+.uppercase { text-transform: uppercase; }
+.tracking-widest { letter-spacing: 2px; }
+.line-height-12 { line-height: 1.2; }
+.line-height-15 { line-height: 1.5; }
+.text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
+.text-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* --- Couleurs Texte --- */
+.text-white { color: var(--text-white); }
+.text-muted { color: var(--text-muted); }
+.text-dark { color: var(--text-dark); }
+.text-neon { color: var(--neon-green); }
+.text-danger { color: var(--danger); }
+.text-warning { color: var(--warning); }
+.text-info { color: var(--info); }
+.text-silver { color: var(--text-silver); }
+.text-bronze { color: var(--text-bronze); }
+
+/* --- Couleurs Fond (Backgrounds) --- */
+.bg-deep { background-color: var(--bg-deep); }
+.bg-black { background-color: var(--bg-black); }
+.bg-transparent { background-color: var(--bg-transparent); }
+.bg-dark-dim { background-color: var(--bg-dark-dim); }
+.bg-neon { background-color: var(--neon-green); }
+.bg-neon-dim { background-color: var(--neon-dim); }
+.bg-danger { background-color: var(--danger); }
+.bg-danger-dim { background-color: var(--danger-dim); }
+.bg-warning { background-color: var(--warning); }
+.bg-warning-dim { background-color: var(--warning-dim); }
+.bg-info { background-color: var(--info); }
+.bg-blue-dim { background-color: var(--info-dim); }
+.bg-red-dim { background-color: rgba(255, 71, 87, 0.15); }
+
+/* Dégradés utilitaires */
+.bg-gradient-dark { background: linear-gradient(135deg, #0a110d 0%, #020a06 100%); }
+.bg-gradient-to-top { background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%); }
+.bg-gradient-to-bottom { background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%); }
+.bg-cover { background-size: cover; }
+.bg-center { background-position: center; }
+
+/* --- Bordures & Arrondis --- */
+.rounded-sm { border-radius: var(--rad-sm); }
+.rounded-md { border-radius: var(--rad-md); }
+.rounded-lg { border-radius: var(--rad-lg); }
+.rounded-xl { border-radius: var(--rad-xl); }
+.rounded-2xl { border-radius: var(--rad-2xl); }
+.rounded-3xl { border-radius: var(--rad-3xl); }
+.rounded-pill { border-radius: var(--rad-pill); }
+.rounded-full { border-radius: var(--rad-full); }
+.rounded-b-3xl { border-radius: 0 0 var(--rad-3xl) var(--rad-3xl); }
+.rounded-t-3xl { border-radius: var(--rad-3xl) var(--rad-3xl) 0 0; }
+.rounded-t-lg { border-radius: var(--rad-lg) var(--rad-lg) 0 0; }
+
+.border-none { border: none; }
+.border-solid { border-style: solid; }
+.border-2 { border-width: 2px; }
+.border-3 { border-width: 3px; }
+.border-4 { border-width: 4px; }
+.border-transparent { border-color: transparent; }
+.border-white { border-color: var(--text-white); }
+.border-dark { border-color: var(--bg-deep); }
+.border-neon { border-color: var(--neon-green); }
+.border-danger { border-color: var(--danger); }
+.border-warning { border-color: var(--warning); }
+.border-silver { border-color: var(--text-silver); }
+.border-bronze { border-color: var(--text-bronze); }
+.border-l-neon { border-left: 3px solid var(--neon-green); }
+.border-l-warning { border-left: 3px solid var(--warning); }
+.border-t-silver { border-top: 4px solid var(--text-silver); }
+.border-t-warning { border-top: 4px solid var(--warning); }
+.border-t-bronze { border-top: 4px solid var(--text-bronze); }
+
+/* --- Opacités & Filtres --- */
+.opacity-10 { opacity: 0.1; }
+.opacity-20 { opacity: 0.2; }
+.opacity-50 { opacity: 0.5; }
+.opacity-70 { opacity: 0.7; }
+.filter-blur-50 { filter: blur(50px); }
+
+/* --- Transformations --- */
+.translate-minus-50 { transform: translate(-50%, -50%); }
+.translate-x-minus-50 { transform: translateX(-50%); }
+.translate-y-minus-50 { transform: translateY(-50%); }
+
+/* --- Interactivité --- */
+.cursor-pointer { cursor: pointer; }
+.pointer-events-none { pointer-events: none; }
+
+/* --- Transitions --- */
+.transition-smooth { transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.transition-bg { transition: background-color 0.2s ease; }
+.transition-transform { transition: transform 0.2s ease; }
+.transition-transform-slow { transition: transform 0.5s ease; }
+.transition-color { transition: color 0.2s ease; }
+.transition-fade { transition: opacity 0.4s ease; }
+.transition-transform-slide { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease; }
+
+.hover-bg-light:active { background-color: rgba(255,255,255,0.05); }
+.hover-scale:active { transform: scale(0.96); }
+
+/* --- Ombres (Shadows) --- */
+.shadow-neon { box-shadow: 0 4px 20px var(--neon-dim); }
+.shadow-gold { box-shadow: 0 0 20px rgba(255, 165, 2, 0.3); }
+.border-neon-glow { border: 1px solid var(--neon-green); box-shadow: 0 0 20px var(--neon-dim), inset 0 0 10px var(--neon-dim); }
+.border-warning-glow { border: 1px solid var(--warning); box-shadow: 0 0 20px var(--warning-dim), inset 0 0 10px var(--warning-dim); }
+.border-info-glow { border: 1px solid var(--info); box-shadow: 0 0 20px var(--info-dim), inset 0 0 10px var(--info-dim); }
+
+
+/* ==========================================================================
+   04. MOTEUR GLASSMORPHISM (LE CŒUR DU DESIGN)
+   ========================================================================== */
+
+/* Arrière-plan Ambiant avec Orbes */
+.ambient-background {
+    pointer-events: none; /* TRÈS IMPORTANT */
+    /* ... reste du code ... */
+}
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.35;
+    animation: floatAnim 12s infinite alternate ease-in-out;
+}
+.orb-1 { width: 350px; height: 350px; background: var(--neon-green-dark); top: -100px; left: -100px; }
+.orb-2 { width: 450px; height: 450px; background: #081c15; bottom: -150px; right: -150px; animation-delay: -6s; }
+.orb-3 { width: 250px; height: 250px; background: var(--neon-green-light); top: 30%; left: 20%; animation-delay: -3s; }
+.orb-4 { width: 200px; height: 200px; background: #1B4332; bottom: 20%; left: -50px; animation-delay: -9s; }
+
+/* Bruit granuleux pour texturer le verre */
+.noise-overlay {
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.08"/%3E%3C/svg%3E');
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+}
+
+/* Classes Glass de base */
+.glass-mirror {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(25px) saturate(180%);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.01);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255,255,255,0.01);
+}
+
+.glass-heavy {
+    background: rgba(2, 10, 6, 0.65);
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+}
+
+.glass-panel {
+    background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-header {
+    background: linear-gradient(to bottom, rgba(2, 10, 6, 0.95) 0%, rgba(2, 10, 6, 0.7) 100%);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.glass-nav {
+    background: linear-gradient(to top, rgba(2, 10, 6, 0.98) 0%, rgba(2, 10, 6, 0.8) 100%);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+/* Bordures spécifiques Glass */
+.border-b-glass { border-bottom: 1px solid rgba(255,255,255,0.06); }
+.border-t-glass { border-top: 1px solid rgba(255,255,255,0.06); }
+.border-l-glass { border-left: 1px solid rgba(255,255,255,0.06); }
+.border-glass { border: 1px solid rgba(255,255,255,0.06); }
+
+/* Reflets internes */
+.glass-diagonal-reflection {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.04) 40%, rgba(255,255,255,0) 50%);
+    transform: rotate(35deg);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ==========================================================================
+   05. ANIMATIONS (KEYFRAMES)
+   ========================================================================== */
+@keyframes floatAnim {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 0 0 var(--neon-glow-heavy); }
+    70% { box-shadow: 0 0 0 15px rgba(82, 183, 136, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(82, 183, 136, 0); }
+}
+
+@keyframes blinkSlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+@keyframes flashCamera {
+    0% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleInPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideDownToast {
+    0% { top: -100px; opacity: 0; }
+    10% { top: 25px; opacity: 1; }
+    90% { top: 25px; opacity: 1; }
+    100% { top: -100px; opacity: 0; }
+}
+
+@keyframes drawRing {
+    to { stroke-dashoffset: 0; }
+}
+
+/* Classes d'animation */
+.pulse-anim { animation: pulseGlow 2s infinite; }
+.pulse-glow-anim { animation: pulseGlow 1.5s infinite; }
+.blink-slow { animation: blinkSlow 2s infinite; }
+.blink-anim { animation: blinkSlow 1s infinite; }
+.slide-up-anim { animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.scale-in-anim { animation: scaleInPop 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* ==========================================================================
+   06. COMPOSANTS PRINCIPAUX (Boutons, Inputs, Toasts)
+   ========================================================================== */
+
+/* --- Boutons --- */
+.btn-glass-primary {
+    background: var(--neon-green);
+    color: var(--bg-deep);
+    border: none;
+    padding: 18px 20px;
+    border-radius: var(--rad-lg);
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s;
+}
+.btn-glass-primary:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 10px var(--neon-dim);
+}
+
+.btn-glass-outline {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-white);
+    padding: 16px 20px;
+    border-radius: var(--rad-lg);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.btn-glass-outline:active {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.glass-btn-circular {
+    width: var(--sz-40);
+    height: var(--sz-40);
+    border-radius: var(--rad-full);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: var(--text-white);
+    transition: background 0.2s;
+}
+.glass-btn-circular:active { background: rgba(0, 0, 0, 0.8); }
+
+.glass-button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+/* --- Badges --- */
+.badge-glass {
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* --- Toasts --- */
+.toast-hidden {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: var(--z-ultimate);
+    width: 90%;
+    max-width: 380px;
+    transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    border-radius: var(--rad-xl);
+}
+.toast-hidden.show {
+    top: calc(20px + var(--safe-top));
+    animation: slideDownToast 3.5s forwards;
+}
+
+/* --- Loaders --- */
+.loader-line {
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: var(--rad-pill);
+    overflow: hidden;
+    position: relative;
+}
+.loader-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    background: var(--neon-green);
+    border-radius: var(--rad-pill);
+    animation: loadingBar 1.5s infinite ease-in-out alternate;
+}
+@keyframes loadingBar {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(200%); }
+}
+
+/* ==========================================================================
+   07. MOTEUR DE VUES PRINCIPALES (SPA ROUTING)
+   ========================================================================== */
+.app-view {
+    /* Cache visuellement mais garde la structure pour les animations */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    
+    /* AJOUT POUR LE SCROLL */
+    position: absolute;
+    inset: 0; /* Prend toute la place */
+    overflow-y: auto; /* Autorise le scroll vertical */
+    -webkit-overflow-scrolling: touch; /* Scroll fluide sur iOS */
+    padding-bottom: 120px; /* Évite que le contenu soit sous la barre du bas */
+}
+
+.app-view.active {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 15;
+    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ==========================================================================
+   08. VUE 1 : EXPLORER (FORÊTS & FILTRES)
+   ========================================================================== */
+.border-focus-neon:focus-within {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-dim);
+}
+
+.glass-filter-btn {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-muted);
+    padding: 10px 20px;
+    border-radius: var(--rad-pill);
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+.glass-filter-btn.active {
+    background: var(--neon-dim);
+    color: var(--neon-green);
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px var(--neon-dim);
+}
+
+/* Cartes Forêts */
+.cards-grid-vertical {
+    display: flex;
+    flex-direction: column;
+}
+.parcours-card {
+    height: 200px;
+    border-radius: var(--rad-xl);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.card-bg-img {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.parcours-card:active .card-bg-img {
+    transform: scale(1.08);
+}
+.card-grad {
+    background: linear-gradient(to top, rgba(2,10,6,0.95) 0%, rgba(2,10,6,0.4) 50%, transparent 100%);
+}
+
+/* ==========================================================================
+   09. VUE 2 : DÉFIS & BOUTIQUE
+   ========================================================================== */
+.challenge-list { width: 100%; }
+.icon-box { display: flex; justify-content: center; align-items: center; width: 36px; height: 36px; }
+
+.shop-grid { display: grid; }
+.shop-item { border: 1px solid rgba(255,255,255,0.05); }
+
+/* ==========================================================================
+   10. VUE 3 : APPRENDRE (ENCYCLOPÉDIE)
+   ========================================================================== */
+.featured-article {
+    background-image: url('https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800');
+    background-size: cover;
+    background-position: center;
+}
+.featured-article::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(2,10,6,0.95) 0%, rgba(2,10,6,0.6) 100%);
+    z-index: 0;
+}
+
+/* ==========================================================================
+   11. VUE 4 : SOCIAL & CLASSEMENT
+   ========================================================================== */
+.segmented-control { border: 1px solid rgba(255,255,255,0.05); }
+.seg-btn.active { background: rgba(255,255,255,0.1); color: var(--text-white); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+
+/* Podium (CSS Art) */
+.podium-container { border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 20px; }
+.bg-glass-gradient {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, transparent 100%);
+    backdrop-filter: blur(10px);
+}
+.avatar-podium { box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
+
+/* Liste Classement */
+.leaderboard-list { border: 1px solid rgba(255,255,255,0.05); }
+.lb-item:last-child { border-bottom: none; }
+
+/* ==========================================================================
+   12. VUE 5 : PROFIL COMPLET & DASHBOARD
+   ========================================================================== */
+.avatar-giant-wrapper { width: 120px; height: 120px; }
+.level-badge { box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+
+/* Animation du cercle SVG */
+.level-ring {
+    filter: drop-shadow(0 0 8px var(--neon-glow));
+}
+
+.stats-grid-3 { display: grid; }
+.stat-box { border: 1px solid rgba(255,255,255,0.05); }
+
+.menu-list { width: 100%; }
+.menu-item { border: 1px solid rgba(255,255,255,0.03); }
+
+/* Toggle Switch Style iOS */
+.toggle-switch {
+    width: 50px;
+    height: 30px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 30px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.toggle-knob {
+    width: 26px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.toggle-switch.active { background: var(--neon-green); }
+.toggle-switch.active .toggle-knob { transform: translateX(20px); }
+
+/* ==========================================================================
+   13. SOUS-PAGES OVERLAYS (Wiki, Santé, Historique)
+   ========================================================================== */
+.fullscreen-overlay {
+    position: fixed;
+    inset: 0;
+    /* Cache en display none par defaut (géré par classe .hidden) */
+}
+.fullscreen-overlay.active {
+    /* L'animation d'entrée est gérée par des classes spécifiques ci-dessous */
+}
+.transition-transform-slide {
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.transition-transform-slide.active { transform: translateX(0); }
+
+.transition-fade {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+}
+.transition-fade.active { opacity: 1; pointer-events: auto; }
+
+/* Contenu HTML injecté dans le profil (Santé, Historique) */
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.data-label { font-size: 0.9rem; color: var(--text-muted); font-weight: 500; }
+.data-value { font-family: var(--font-heading); font-size: 1.1rem; color: var(--text-white); font-weight: 700; }
+
+/* Contenu HTML injecté dans le Wiki */
+.article-format h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--neon-green);
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+.article-format p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-silver);
+    margin-bottom: 15px;
+}
+.article-format ul {
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: var(--text-silver);
+    line-height: 1.7;
+}
+.article-format li { margin-bottom: 10px; }
+
+/* ==========================================================================
+   14. MOTEUR DE SÉANCE : PRE-FLIGHT (RÉSUMÉ)
+   ========================================================================== */
+.pre-flight-cover {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.timeline-container { position: relative; }
+.timeline-item { position: relative; margin-bottom: 25px; }
+.timeline-dot {
+    position: absolute;
+    left: -26px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    background: var(--neon-green);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--neon-green);
+}
+
+/* ==========================================================================
+   15. MOTEUR DE SÉANCE : INSTRUCTION THÉORIQUE
+   ========================================================================== */
+.instruction-card {
+    box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+/* ==========================================================================
+   16. MOTEUR DE SÉANCE : CAMÉRA RÉALISTE
+   ========================================================================== */
+.cam-viewfinder {
+    mix-blend-mode: overlay;
+}
+.focus-corner {
+    /* Style défini dans les utilitaires HTML (border-t-2 etc.) */
+}
+/* Bouton de l'appareil photo iOS Style */
+.shutter-btn {
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+}
+.shutter-inner {
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+}
+.shutter-btn:active .shutter-inner {
+    background-color: var(--text-silver);
+    transform: scale(0.9);
+}
+
+#camera-flash {
+    animation: flashCamera 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ==========================================================================
+   17. NAVIGATION BASSE (BOTTOM TAB BAR)
+   ========================================================================== */
+.glass-nav {
+    background: linear-gradient(to top, rgba(2, 10, 6, 0.98) 0%, rgba(2, 10, 6, 0.8) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    padding-bottom: calc(15px + var(--safe-bottom));
+}
+.nav-tab.active {
+    color: var(--neon-green);
+}
+.nav-tab.active i {
+    transform: translateY(-4px);
+    filter: drop-shadow(0 2px 4px var(--neon-glow));
+}
+.center-play-btn {
+    bottom: calc(10px + var(--safe-bottom));
+}
+
+/* ==========================================================================
+   18. ONBOARDING (TUTORIEL)
+   ========================================================================== */
+.onboarding-slider {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.onboarding-slide {
+    position: absolute;
+    width: 100%;
+    padding: 40px;
+    text-align: center;
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: none;
+}
+.onboarding-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+.onboarding-img-box {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto;
+    border-radius: var(--rad-full);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--neon-green);
+    box-shadow: 0 0 30px var(--neon-dim);
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    transition: all 0.3s ease;
+}
+.dot.active {
+    background: var(--neon-green);
+    width: 25px;
+    border-radius: var(--rad-pill);
+}
+
+/* ==========================================================================
+   FIN DU FICHIER STYLE.CSS
+   ========================================================================== */
