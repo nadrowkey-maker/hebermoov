@@ -1,0 +1,24 @@
+{
+  "name": "HeberMoov - Ultimate Glass Forest",
+  "short_name": "HeberMoov",
+  "description": "La forêt comme salle de sport. Méthode naturelle STAPS.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#020a06",
+  "theme_color": "#52B788",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ]
+}
