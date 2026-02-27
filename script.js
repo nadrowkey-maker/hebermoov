@@ -805,3 +805,13 @@ class App {
 // DÉMARRAGE MOTEUR
 // ==========================================================================
 document.addEventListener('DOMContentLoaded', () => App.init());
+// ==========================================================================
+// MOTEUR D'INSTALLATION PWA (Propose l'installation sur le téléphone)
+// ==========================================================================
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+            .then((reg) => console.log('Moteur PWA activé avec succès.', reg))
+            .catch((err) => console.log('Erreur PWA:', err));
+    });
+}
