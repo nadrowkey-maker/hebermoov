@@ -1,0 +1,18 @@
+{
+  "name": "Hebermoov Premium",
+  "short_name": "Hebermoov",
+  "description": "L'application d'Hébertisme et de survie urbaine.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
