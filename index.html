@@ -222,12 +222,34 @@
                     </div>
                 </div>
                 
-                <div class="flex flex-wrap justify-start gap-2 w-full mt-2">
-                    <button class="tab-explore active px-5 py-2.5 rounded-full text-xs font-bold bg-white text-black transition-colors shadow-md border border-transparent" onclick="App.switchPark('gayeulles', this)">Gayeulles</button>
-                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors" onclick="App.switchPark('thabor', this)">Thabor</button>
-                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors" onclick="App.switchPark('beaulieu', this)">Campus</button>
-                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors" onclick="App.switchPark('apigne', this)">Apigné</button>
-                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors" onclick="App.switchPark('stmartin', this)">St-Martin</button>
+                <!-- BARRE DE RECHERCHE DYNAMIQUE — filtre les 19 parcours en temps réel -->
+                <div class="relative w-full">
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-2xl border border-white-10 flex items-center gap-3 px-5 py-3.5 focus-within:border-volt transition-all shadow-sm">
+                        <i class="fas fa-search text-gray-500 text-sm flex-shrink-0"></i>
+                        <input id="explore-search" type="text" placeholder="Rechercher parcours, type, niveau…"
+                               class="flex-1 bg-transparent text-white text-sm font-medium placeholder-gray-600 outline-none"
+                               oninput="Search.filter(this.value)">
+                        <button id="search-clear-btn" class="text-gray-500 hover:text-white transition-colors" onclick="Search.clearSearch()" style="display:none;">
+                            <i class="fas fa-times text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Résultats de recherche dynamiques (cachés par défaut) -->
+                <div id="search-results" class="hidden flex flex-col w-full"></div>
+
+                <!-- SECTION PARCS — cachée lors d'une recherche active -->
+                <div id="parks-section" class="flex flex-col gap-6 w-full">
+                <div class="flex flex-wrap justify-start gap-2 w-full overflow-x-auto hide-scrollbar pb-1">
+                    <button class="tab-explore active px-5 py-2.5 rounded-full text-xs font-bold bg-white text-black transition-colors shadow-md border border-transparent flex-shrink-0" onclick="App.switchPark('gayeulles', this)">Gayeulles</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('thabor', this)">Thabor</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('beaulieu', this)">Campus</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('apigne', this)">Apigné</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('stmartin', this)">St-Martin</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('soeuvres', this)">Soeuvres</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('rheu', this)">Le Rheu</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('lifre', this)">Liffré</button>
+                    <button class="tab-explore px-5 py-2.5 rounded-full text-xs font-bold bg-gray-900 border border-white-10 text-gray-400 transition-colors flex-shrink-0" onclick="App.switchPark('teillay', this)">Teillay</button>
                 </div>
                 
                 <div id="park-gayeulles" class="park-container flex flex-col gap-5">
@@ -241,7 +263,7 @@
                         <div class="px-5 pb-5">
                             <h4 class="text-2xl font-black mb-1 text-white">La Ceinture Forestière</h4>
                             <div class="flex items-center justify-between text-sm font-bold mt-4">
-                                <span class="text-volt transition-colors"><i class="fas fa-layer-group mr-1.5"></i>8 Ateliers</span>
+                                <span class="text-volt transition-colors"><i class="fas fa-layer-group mr-1.5"></i>4 Ateliers</span>
                                 <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>55 min</span>
                                 <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>520 kcal</span>
                             </div>
@@ -257,9 +279,41 @@
                         <div class="px-5 pb-5">
                             <h4 class="text-2xl font-black mb-1 text-white">Le Cœur Sombre</h4>
                             <div class="flex items-center justify-between text-sm font-bold mt-4">
-                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>5 Ateliers</span>
+                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>3 Ateliers</span>
                                 <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>30 min</span>
                                 <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>600 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-orange-500/30 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('gayeulles-3')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-orange-500/80 text-white text-xs font-bold uppercase tracking-widest shadow-md">Trail • Intense</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Défi des Collines</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-orange-500"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>40 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>430 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-red-500/50 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('gayeulles-4')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-red-500/30 mix-blend-overlay"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-red-500 text-white text-xs font-bold uppercase tracking-widest shadow-md">⚠ Survie Nocturne • Élite</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white shadow-[0_0_15px_#ef4444]"><i class="fas fa-moon text-lg"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Sentier du Prédateur</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>2 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>25 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>320 kcal</span>
                             </div>
                         </div>
                     </div>
@@ -276,9 +330,25 @@
                         <div class="px-5 pb-5">
                             <h4 class="text-2xl font-black mb-1 text-white">L'Enfer des Marches</h4>
                             <div class="flex items-center justify-between text-sm font-bold mt-4">
-                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>6 Ateliers</span>
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
                                 <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>35 min</span>
                                 <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>400 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('thabor-2')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-green-500/80 text-white text-[10px] font-bold uppercase tracking-widest">Débutant • Urbain</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Tour du Thabor Express</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>2 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>20 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>280 kcal</span>
                             </div>
                         </div>
                     </div>
@@ -333,20 +403,285 @@
                         <div class="px-5 pb-5">
                             <h4 class="text-2xl font-black mb-1 text-white">Sentier des Bûcherons</h4>
                             <div class="flex items-center justify-between text-sm font-bold mt-4">
-                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>7 Ateliers</span>
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>2 Ateliers</span>
                                 <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>50 min</span>
                                 <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>450 kcal</span>
                             </div>
                         </div>
                     </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-red-500/30 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('stmartin-2')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-70 grayscale group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-red-500/20 mix-blend-overlay"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest">Forêt Extrême • Élite</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white shadow-[0_0_15px_#ef4444]"><i class="fas fa-skull text-lg"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Les Ravines Sauvages</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>65 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>580 kcal</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- NOUVELLES ZONES — Bois de Soeuvres -->
+                <div id="park-soeuvres" class="park-container flex flex-col gap-5 hidden">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-green-500/10 flex items-center justify-center"><i class="fas fa-tree text-green-500"></i></div>
+                        <div><h3 class="font-black text-xl text-white">Bois de Soeuvres</h3><p class="text-xs text-gray-500 font-bold">SW Rennes • 3 parcours disponibles</p></div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('soeuvres-1')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Forêt Dense</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">La Tranchée de Soeuvres</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>60 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>570 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('soeuvres-2')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Nature & Équilibre</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Les Sous-Bois Cachés</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>45 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>420 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-red-500/30 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('soeuvres-3')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-red-500/10 mix-blend-overlay"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-red-500/80 text-white text-[10px] font-bold uppercase tracking-widest">Survie • Intense</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Piège Sylvestre</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-red-500"><i class="fas fa-layer-group mr-1.5"></i>2 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>35 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>380 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NOUVELLES ZONES — Bois du Rheu -->
+                <div id="park-rheu" class="park-container flex flex-col gap-5 hidden">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-teal-500/10 flex items-center justify-center"><i class="fas fa-leaf text-teal-500"></i></div>
+                        <div><h3 class="font-black text-xl text-white">Bois du Rheu</h3><p class="text-xs text-gray-500 font-bold">Ouest Rennes • 3 parcours disponibles</p></div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('rheu-1')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1534774867929-7763fcfe95c0?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Forêt & Campagne</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Circuit du Rheu</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>55 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>490 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('rheu-2')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Endurance Pure</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">La Traversée Forestière</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>2 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>45 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>410 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('rheu-3')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-green-500/80 text-white text-[10px] font-bold uppercase tracking-widest">Mixte • Débutant</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">La Boucle des Pâtures</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>2 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>40 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>360 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NOUVELLES ZONES — Forêt de Liffré -->
+                <div id="park-lifre" class="park-container flex flex-col gap-5 hidden">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center"><i class="fas fa-snowflake text-blue-400"></i></div>
+                        <div><h3 class="font-black text-xl text-white">Forêt de Liffré</h3><p class="text-xs text-gray-500 font-bold">NE Rennes • 3 parcours disponibles</p></div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-red-500/30 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('lifre-1')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest">Forêt Profonde • Élite</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white shadow-[0_0_15px_#ef4444]"><i class="fas fa-skull text-lg"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">L'Expédition Nordique</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>4 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>75 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>660 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('lifre-2')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Trail Magique</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Chemin des Korrigans</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>50 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>490 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('lifre-3')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Forêt de Hêtres</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">La Diagonale des Hêtres</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>60 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>530 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NOUVELLES ZONES — Forêt de Teillay -->
+                <div id="park-teillay" class="park-container flex flex-col gap-5 hidden">
+                    <div class="flex items-center gap-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center"><i class="fas fa-dragon text-purple-500"></i></div>
+                        <div><h3 class="font-black text-xl text-white">Forêt de Teillay</h3><p class="text-xs text-gray-500 font-bold">SE Rennes • 3 parcours disponibles</p></div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-red-500/50 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('teillay-1')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-70 grayscale group-hover:scale-105 transition-transform duration-1000">
+                            <div class="absolute inset-0 bg-red-500/30 mix-blend-overlay"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-red-500 text-white text-[10px] font-bold uppercase tracking-widest">⚠ Forêt Extrême • Élite</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-red-500 flex items-center justify-center text-white shadow-[0_0_15px_#ef4444]"><i class="fas fa-dragon text-lg"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">La Frontière Sauvage</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>4 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>80 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>720 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('teillay-2')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-90"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-black/60 backdrop-blur-md border border-white-10 text-[10px] font-bold uppercase tracking-widest text-white">Piste Ancestrale</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-white flex items-center justify-center text-black shadow-md"><i class="fas fa-play ml-1"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">La Piste Celtique</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-volt"><i class="fas fa-layer-group mr-1.5"></i>2 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>40 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>380 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-2 border border-red-500/30 cursor-pointer active:scale-95 transition-transform shadow-lg group" onclick="App.openRoutePreview('teillay-3')">
+                        <div class="w-full h-56 rounded-[24px] overflow-hidden relative mb-4">
+                            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition-transform">
+                            <div class="absolute inset-0 bg-purple-500/20 mix-blend-overlay"></div>
+                            <div class="absolute top-4 left-4 px-4 py-2 rounded-full bg-purple-500/80 text-white text-[10px] font-bold uppercase tracking-widest">Survie Extrême • Élite</div>
+                            <div class="absolute bottom-4 right-4 w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white shadow-md"><i class="fas fa-moon text-lg"></i></div>
+                        </div>
+                        <div class="px-5 pb-5">
+                            <h4 class="text-2xl font-black mb-1 text-white">Le Rituel de l'Aube</h4>
+                            <div class="flex items-center justify-between text-sm font-bold mt-4">
+                                <span class="text-red-500"><i class="fas fa-skull mr-1.5"></i>3 Ateliers</span>
+                                <span class="text-white"><i class="fas fa-stopwatch mr-1.5"></i>55 min</span>
+                                <span class="text-gray-400"><i class="fas fa-fire mr-1.5"></i>510 kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div><!-- /parks-section -->
             </section>
 
             <section id="view-challenges" class="spa-view w-full min-h-full px-6 flex flex-col gap-6">
                 <div class="mt-4">
                     <h2 class="text-4xl font-black tracking-tighter leading-none mb-2 text-white">Missions &<br><span class="text-volt transition-colors" id="chal-title-color">Récompenses.</span></h2>
                 </div>
-                
+
+                <!-- DÉFI QUOTIDIEN — se renouvelle automatiquement chaque jour -->
+                <div class="w-full bg-gradient-to-br from-volt/10 to-gray-900 border border-volt/30 rounded-[32px] p-6 shadow-lg relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-volt opacity-10 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 rounded-2xl bg-volt/20 flex items-center justify-center text-volt" id="daily-challenge-icon">
+                            <i class="fas fa-running text-3xl"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black text-volt uppercase tracking-widest">Défi du Jour</span>
+                            <h3 class="font-black text-xl text-white leading-tight" id="daily-challenge-title">Chargement...</h3>
+                        </div>
+                        <span class="ml-auto bg-volt text-black font-black text-sm px-3 py-1.5 rounded-full shadow-volt flex-shrink-0" id="daily-challenge-xp">+150 XP</span>
+                    </div>
+                    <p class="text-sm text-gray-300 font-medium mb-5 leading-relaxed" id="daily-challenge-desc">Préparation du défi...</p>
+                    <div class="flex items-center gap-4">
+                        <button id="daily-challenge-btn" class="flex-1 bg-volt text-black font-black py-4 rounded-2xl active:scale-95 transition-transform shadow-volt text-base" onclick="DailyChallenge.startTimer()">LANCER LE DÉFI</button>
+                        <div class="bg-black/40 border border-white-10 rounded-2xl px-4 py-4 text-center min-w-[80px]">
+                            <span id="daily-challenge-timer" class="font-black text-volt text-xl" style="display:none;">--</span>
+                            <i class="fas fa-stopwatch text-gray-500 text-xl" id="daily-timer-icon"></i>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex flex-col gap-4">
                     <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-6 border-l-4 border-l-volt border-t border-r border-b border-white-5 shadow-lg">
                         <div class="flex justify-between items-start mb-5">
@@ -493,12 +828,19 @@
                 <div class="mt-4 mb-2">
                     <h2 class="text-4xl font-black tracking-tighter leading-none mb-6 text-white">Réseau<br><span class="text-purple-500">Rennes.</span></h2>
                     <div class="w-full p-1.5 bg-gray-900 rounded-full border border-white-10 flex flex-row relative shadow-inner">
-                        <button class="flex-1 py-3.5 rounded-full text-base font-bold bg-white text-black transition-colors shadow-sm" id="btn-soc-feed" onclick="App.switchSocialTab('feed')">Opérations</button>
-                        <button class="flex-1 py-3.5 rounded-full text-base font-bold text-gray-500 bg-transparent transition-colors" id="btn-soc-leaderboard" onclick="App.switchSocialTab('leaderboard')">Classement</button>
+                        <button class="flex-1 py-3.5 rounded-full text-sm font-bold bg-white text-black transition-colors shadow-sm" id="btn-soc-feed" onclick="App.switchSocialTab('feed')">Opérations</button>
+                        <button class="flex-1 py-3.5 rounded-full text-sm font-bold text-gray-500 bg-transparent transition-colors" id="btn-soc-leaderboard" onclick="App.switchSocialTab('leaderboard')">Classement</button>
+                        <button class="flex-1 py-3.5 rounded-full text-sm font-bold text-gray-500 bg-transparent transition-colors relative" id="btn-soc-messages" onclick="App.switchSocialTab('messages')">
+                            <i class="fas fa-comment mr-1"></i>Msgs
+                            <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-volt animate-ping"></span>
+                        </button>
                     </div>
                 </div>
 
                 <div id="social-content-feed" class="social-view flex flex-col gap-6 pb-10 block">
+                    <!-- Conteneur des posts dynamiques générés depuis SOCIAL_DB (6 posts) -->
+                    <div id="dynamic-feed-posts" class="flex flex-col gap-6"></div>
+                    <!-- Posts statiques existants (conservés intacts) -->
                     <div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-6 border border-white-10 shadow-lg">
                         <div class="flex items-center justify-between mb-5">
                             <div class="flex items-center gap-4">
@@ -581,6 +923,52 @@
                     </div>
                 </div>
                 
+                <!-- ONGLET MESSAGES — Système de messagerie intégré -->
+                <div id="social-content-messages" class="social-view flex flex-col gap-4 pb-10 hidden">
+                    <!-- Inbox : liste des conversations -->
+                    <div id="messaging-inbox">
+                        <div class="flex items-center justify-between mb-5">
+                            <h3 class="text-2xl font-black text-white">Messages</h3>
+                            <span class="text-xs font-bold text-volt bg-volt/10 border border-volt/30 px-3 py-1 rounded-full">52 contacts</span>
+                        </div>
+                        <div id="messaging-inbox-list" class="flex flex-col gap-1">
+                            <div class="text-center py-8 text-gray-500"><i class="fas fa-spinner fa-spin text-2xl"></i></div>
+                        </div>
+                    </div>
+                    <!-- Vue Chat — cachée par défaut, s'affiche quand on clique sur un contact -->
+                    <div id="messaging-chat" class="flex flex-col" style="display:none;">
+                        <!-- En-tête du chat avec avatar et nom -->
+                        <div class="flex items-center gap-4 mb-5 sticky top-0 bg-black/80 backdrop-blur-md py-3 -mx-6 px-6 z-10 border-b border-white-10">
+                            <button onclick="Messaging.closeChat()" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white active:scale-90 transition-transform flex-shrink-0">
+                                <i class="fas fa-arrow-left text-sm"></i>
+                            </button>
+                            <img id="chat-user-avatar" src="" class="w-11 h-11 rounded-full object-cover border-2 border-gray-700 flex-shrink-0" onerror="this.src='https://ui-avatars.com/api/?name=User&background=333&color=fff'">
+                            <div class="flex flex-col">
+                                <span id="chat-user-name" class="font-bold text-white text-base leading-tight">Contact</span>
+                                <span id="chat-user-grade" class="text-xs text-volt font-bold">En ligne</span>
+                            </div>
+                        </div>
+                        <!-- Bulles de messages -->
+                        <div id="chat-messages" class="flex flex-col gap-1 min-h-[250px] mb-3 px-1 overflow-y-auto hide-scrollbar"></div>
+                        <!-- Indicateur de saisie du bot -->
+                        <div id="chat-typing" class="flex items-center gap-2 px-2 mb-2" style="display:none!important;">
+                            <div class="bg-gray-800 rounded-[20px] rounded-bl-md px-4 py-3 border border-white-5">
+                                <span class="text-gray-500 text-sm">...</span>
+                            </div>
+                        </div>
+                        <!-- Zone de saisie du message -->
+                        <div class="flex items-center gap-3 bg-gray-900/80 border border-white-10 rounded-2xl px-4 py-3 backdrop-blur-md sticky bottom-20 mt-2">
+                            <input id="chat-input" type="text" placeholder="Écrire un message..."
+                                   class="flex-1 bg-transparent text-white text-sm font-medium placeholder-gray-600 outline-none"
+                                   onkeypress="if(event.key==='Enter')Messaging.sendMessage(this.value)">
+                            <button onclick="Messaging.sendMessage(document.getElementById('chat-input').value)"
+                                    class="w-10 h-10 rounded-full bg-volt flex items-center justify-center text-black active:scale-90 transition-transform flex-shrink-0 shadow-volt">
+                                <i class="fas fa-paper-plane text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="social-content-leaderboard" class="social-view flex flex-col gap-6 pb-10 hidden">
                     <div class="w-full h-72 flex items-end justify-center gap-4 mb-6 border-b border-white-10 pb-8">
                         <div class="flex flex-col items-center w-1/4">
@@ -677,6 +1065,17 @@
                             <div class="w-full max-w-[280px] aspect-square relative z-10">
                                 <canvas id="radar-chart-canvas"></canvas>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- SYSTÈME DE BADGES — 8 achievements visuels débloquables -->
+                    <div class="flex flex-col">
+                        <div class="flex items-center justify-between mb-5">
+                            <h3 class="text-2xl font-black text-white">Badges & Trophées</h3>
+                            <i class="fas fa-medal text-yellow-500 text-xl drop-shadow-md animate-float"></i>
+                        </div>
+                        <div id="badges-container" class="grid grid-cols-4 gap-4 bg-gray-900 rounded-[32px] p-6 border border-white-5 shadow-xl">
+                            <!-- Généré par Badges.renderBadges() -->
                         </div>
                     </div>
 
