@@ -11,12 +11,158 @@ const DB = {
         "thabor-1": { title: "L'Enfer des Marches", type: "Parc Urbain", time: "35 min", kcal: 400, level: "Intense", img: "https://images.unsplash.com/photo-1508349937151-22b68b72d5b1?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Montée d'escaliers", d: "Course dans les marches.", c: "Course", xp: 90 }, { t: "Sauts de marches", d: "10 sauts pieds joints.", c: "Saut", xp: 110 }, { t: "Équilibre muret", d: "Marche stricte sur les rebords.", c: "Equilibre", xp: 70 }] },
         "beaulieu-1": { title: "Béton & Verdure", type: "Campus", time: "40 min", kcal: 350, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Course urbaine", d: "Slalom entre les bâtiments.", c: "Course", xp: 60 }, { t: "Traction sur barre", d: "Trouver une structure et tirer son poids.", c: "Grimper", xp: 120 }] },
         "apigne-1": { title: "Le Tour des Étangs", type: "Bord d'eau", time: "45 min", kcal: 380, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Course souple", d: "Footing sur sentier meuble.", c: "Course", xp: 70 }, { t: "Sprint sur sable", d: "Accélération sur sol absorbant.", c: "Course", xp: 100 }] },
-        "stmartin-1": { title: "Sentier des Bûcherons", type: "Forêt", time: "50 min", kcal: 450, level: "Intense", img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Soulevé de roche", d: "Trouver une grosse pierre, soulevé de terre.", c: "Lever", xp: 150 }, { t: "Lancer de roche", d: "Jeté explosif à deux mains.", c: "Lancer", xp: 110 }] }
+        "stmartin-1": { title: "Sentier des Bûcherons", type: "Forêt", time: "50 min", kcal: 450, level: "Intense", img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Soulevé de roche", d: "Trouver une grosse pierre, soulevé de terre.", c: "Lever", xp: 150 }, { t: "Lancer de roche", d: "Jeté explosif à deux mains.", c: "Lancer", xp: 110 }] },
+
+        // ===== PARCOURS SUPPLÉMENTAIRES PARCS EXISTANTS =====
+        "gayeulles-3": { title: "Le Défi des Collines", type: "Trail", time: "40 min", kcal: 430, level: "Intense", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Montée explosive", d: "Sprint en côte sur 200m de dénivelé.", c: "Course", xp: 100 }, { t: "Descente maîtrisée", d: "Courir en descente raide sans perdre l'équilibre.", c: "Equilibre", xp: 80 }, { t: "Franchissement naturel", d: "Saut par-dessus un fossé en contrebas.", c: "Saut", xp: 90 }] },
+        "gayeulles-4": { title: "Le Sentier du Prédateur", type: "Survie Nocturne", time: "25 min", kcal: 320, level: "Élite", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Déplacement silencieux", d: "Marcher 500m sans faire de bruit sur sol de feuilles mortes.", c: "Marche", xp: 120 }, { t: "Embuscade simulée", d: "Monter sur un chêne et rester immobile 30 secondes.", c: "Grimper", xp: 180 }] },
+        "thabor-2": { title: "Le Tour du Thabor Express", type: "Parc Urbain", time: "20 min", kcal: 280, level: "Débutant", img: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Footing doux", d: "2 tours du parc en jogging léger.", c: "Course", xp: 50 }, { t: "Abdos plein air", d: "20 crunchs sur un banc de parc.", c: "Lever", xp: 70 }] },
+        "beaulieu-2": { title: "Le Parcours STAPS", type: "Campus Intensity", time: "30 min", kcal: 330, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Navette inter-bâtiments", d: "Sprint entre bâtiments A et B (100m aller-retour x3).", c: "Course", xp: 80 }, { t: "Pompes murales", d: "20 pompes contre le mur du gymnase.", c: "Lever", xp: 90 }] },
+        "apigne-2": { title: "L'Aquatique Challenge", type: "Bord d'eau", time: "50 min", kcal: 460, level: "Intense", img: "https://images.unsplash.com/photo-1500829243541-74b677fecc30?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Longée d'étang", d: "Courir le contour complet du grand étang (2km).", c: "Course", xp: 90 }, { t: "Saut de digue", d: "Franchir 3 mini-digues en saut à deux pieds.", c: "Saut", xp: 100 }, { t: "Transport de kayak", d: "Soulever et porter un kayak sur 50m.", c: "Lever", xp: 130 }] },
+        "stmartin-2": { title: "Les Ravines Sauvages", type: "Forêt Extrême", time: "65 min", kcal: 580, level: "Élite", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Descente de ravine", d: "Descendre en quadrupedie une pente de 40° sur 30m.", c: "Quadrupedie", xp: 150 }, { t: "Remontée explosive", d: "Sprint de montée dans la ravine.", c: "Course", xp: 120 }, { t: "Lancer de rocher", d: "Lancer une pierre de 3kg à 8m de distance.", c: "Lancer", xp: 110 }] },
+
+        // ===== BOIS DE SOEUVRES =====
+        "soeuvres-1": { title: "La Tranchée de Soeuvres", type: "Forêt Dense", time: "60 min", kcal: 570, level: "Intense", img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Infiltration sous-bois", d: "Ramper sur 20m sous des branches à 60cm du sol.", c: "Quadrupedie", xp: 130 }, { t: "Escalade de chêne", d: "Atteindre la branche à 3m d'un chêne centenaire.", c: "Grimper", xp: 200 }, { t: "Course trail", d: "1.5km de sentier sinueux en montée.", c: "Course", xp: 100 }] },
+        "soeuvres-2": { title: "Les Sous-Bois Cachés", type: "Nature & Équilibre", time: "45 min", kcal: 420, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Marche de prospection", d: "2km de marche rapide en terrain varié.", c: "Marche", xp: 60 }, { t: "Saut de buissons", d: "Franchir 5 buissons épineux sans les toucher.", c: "Saut", xp: 90 }, { t: "Équilibre sur tronc", d: "Traverser un tronc couché en équilibre (10m).", c: "Equilibre", xp: 80 }] },
+        "soeuvres-3": { title: "Le Piège Sylvestre", type: "Survie", time: "35 min", kcal: 380, level: "Intense", img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Déplacement reptation", d: "30m de reptation militaire sous ronces.", c: "Quadrupedie", xp: 160 }, { t: "Lancer défensif", d: "Lancer précis sur cible naturelle à 8m.", c: "Lancer", xp: 100 }] },
+
+        // ===== BOIS DU RHEU =====
+        "rheu-1": { title: "Le Circuit du Rheu", type: "Forêt & Campagne", time: "55 min", kcal: 490, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1534774867929-7763fcfe95c0?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Trail bocager", d: "Courir 2km entre champs et haies bocagères.", c: "Course", xp: 80 }, { t: "Portage en terrain mou", d: "Porter une charge de 10kg sur 100m en sol meuble.", c: "Lever", xp: 140 }, { t: "Haie naturelle", d: "Franchir 4 haies vives en saut contrôlé.", c: "Saut", xp: 90 }] },
+        "rheu-2": { title: "La Traversée Forestière", type: "Endurance Pure", time: "45 min", kcal: 410, level: "Intense", img: "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Course longue endurance", d: "3km de trail forestier non-stop à allure modérée.", c: "Course", xp: 110 }, { t: "Lancer de précision", d: "Atteindre une cible naturelle à 5m avec une pierre.", c: "Lancer", xp: 80 }] },
+        "rheu-3": { title: "La Boucle des Pâtures", type: "Mixte", time: "40 min", kcal: 360, level: "Débutant", img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Marche active", d: "3km de marche nordique rythmée.", c: "Marche", xp: 60 }, { t: "Gainage naturel", d: "Tenir 60s en position de planche sur sol herbeux.", c: "Equilibre", xp: 70 }] },
+
+        // ===== FORÊT DE LIFFRÉ =====
+        "lifre-1": { title: "L'Expédition Nordique", type: "Forêt Profonde", time: "75 min", kcal: 660, level: "Élite", img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Marche nordique active", d: "3km de marche rapide avec bâtons naturels.", c: "Marche", xp: 80 }, { t: "Portage de bûche", d: "Porter une bûche de 25kg sur 200m en forêt.", c: "Lever", xp: 200 }, { t: "Grimper de falaise", d: "Escalader une paroi rocheuse de 4m sans aide.", c: "Grimper", xp: 220 }, { t: "Sprint final", d: "800m de sprint sur terrain meuble.", c: "Course", xp: 130 }] },
+        "lifre-2": { title: "Le Chemin des Korrigans", type: "Trail Magique", time: "50 min", kcal: 490, level: "Intense", img: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Sentier enchanté", d: "Courir 2km sur chemin tortueux, respecter la faune.", c: "Course", xp: 90 }, { t: "Franchissement de ruisseau", d: "Passer un ruisseau en saut sans se mouiller.", c: "Saut", xp: 100 }, { t: "Défense naturelle", d: "Se protéger 30s d'un partenaire (simulation combat).", c: "Defense", xp: 120 }] },
+        "lifre-3": { title: "La Diagonale des Hêtres", type: "Forêt", time: "60 min", kcal: 530, level: "Intense", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Traversée forestière", d: "2.5km en forêt de hêtres anciens.", c: "Course", xp: 100 }, { t: "Équilibre branchu", d: "Monter et avancer sur 3 branches consécutives.", c: "Equilibre", xp: 90 }, { t: "Portage montée", d: "Porter 15kg sur une côte de 200m.", c: "Lever", xp: 160 }] },
+
+        // ===== FORÊT DE TEILLAY =====
+        "teillay-1": { title: "La Frontière Sauvage", type: "Forêt Extrême", time: "80 min", kcal: 720, level: "Élite", img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Mise en condition", d: "2km de marche rapide en forêt primaire bretonne.", c: "Marche", xp: 70 }, { t: "Escalade intensive", d: "Grimper 5 arbres différents en moins de 20min.", c: "Grimper", xp: 250 }, { t: "Portage extrême", d: "Porter 30kg sur 100m en terrain accidenté.", c: "Lever", xp: 200 }, { t: "Course d'évasion", d: "1km de sprint sur terrain inconnu et varié.", c: "Course", xp: 150 }] },
+        "teillay-2": { title: "La Piste Celtique", type: "Nature", time: "40 min", kcal: 380, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Course sur piste", d: "1.5km sur piste boisée en terrain souple.", c: "Course", xp: 70 }, { t: "Équilibre celtique", d: "Marcher sur 3 troncs posés au sol consécutivement.", c: "Equilibre", xp: 80 }] },
+        "teillay-3": { title: "Le Rituel de l'Aube", type: "Survie Extrême", time: "55 min", kcal: 510, level: "Élite", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Reptation boueuse", d: "30m de reptation sur sol détrempé.", c: "Quadrupedie", xp: 170 }, { t: "Défense en forêt", d: "Simuler 3 séquences de défense naturelle.", c: "Defense", xp: 140 }, { t: "Sprint d'urgence", d: "500m en sprint maximum sur terrain meuble.", c: "Course", xp: 120 }] }
     }
 };
 
 // ==========================================================================
-// 2. GESTIONNAIRE D'ÉTAT & MÉMOIRE LOCALE
+// 2. BASE DE DONNÉES SOCIALE (52 PROFILS FACTICES + MESSAGERIE)
+// ==========================================================================
+const SOCIAL_DB = {
+    // 52 profils d'utilisateurs factices avec avatars, grades et localisations
+    profiles: [
+        { id: 1,  name: "Léa Martin",          initials: "LM", grade: "L3 STAPS",     location: "Gayeulles", xp: 25800, img: "https://i.pravatar.cc/150?img=47", color: "#a855f7" },
+        { id: 2,  name: "Antoine Dubois",       initials: "AD", grade: "M1 STAPS",     location: "Thabor",    xp: 21400, img: "https://i.pravatar.cc/150?img=11", color: "#6b7280" },
+        { id: 3,  name: "Marc Bernard",         initials: "MB", grade: "L2 Maths",     location: "St-Martin", xp: 19200, img: "https://i.pravatar.cc/150?img=15", color: "#d97706" },
+        { id: 4,  name: "Sophie Girard",        initials: "SG", grade: "L1 Bio",       location: "Apigné",    xp: 18800, img: "https://i.pravatar.cc/150?img=25", color: "#ec4899" },
+        { id: 5,  name: "Hugo Lefèvre",         initials: "HL", grade: "L2 INFO",      location: "Campus",    xp: 14200, img: "https://i.pravatar.cc/150?img=13", color: "#3b82f6" },
+        { id: 6,  name: "Camille Moreau",       initials: "CM", grade: "M2 Sport",     location: "Gayeulles", xp: 13900, img: "https://i.pravatar.cc/150?img=32", color: "#6366f1" },
+        { id: 7,  name: "Julien Petit",         initials: "JP", grade: "L3 Droit",     location: "Thabor",    xp: 12400, img: "https://i.pravatar.cc/150?img=17", color: "#f97316" },
+        { id: 8,  name: "Emma Rousseau",        initials: "ER", grade: "L1 STAPS",     location: "Gayeulles", xp: 11200, img: "https://i.pravatar.cc/150?img=44", color: "#14b8a6" },
+        { id: 9,  name: "Lucas Simon",          initials: "LS", grade: "M1 Kiné",      location: "Liffré",    xp: 10800, img: "https://i.pravatar.cc/150?img=19", color: "#8b5cf6" },
+        { id: 10, name: "Inès Fontaine",        initials: "IF", grade: "L2 STAPS",     location: "Soeuvres",  xp: 10100, img: "https://i.pravatar.cc/150?img=36", color: "#f43f5e" },
+        { id: 11, name: "Thomas Laurent",       initials: "TL", grade: "L3 Géo",       location: "St-Martin", xp: 9800,  img: "https://i.pravatar.cc/150?img=20", color: "#0ea5e9" },
+        { id: 12, name: "Clara Dupont",         initials: "CD", grade: "M1 STAPS",     location: "Apigné",    xp: 9400,  img: "https://i.pravatar.cc/150?img=38", color: "#22c55e" },
+        { id: 13, name: "Mathieu Picard",       initials: "MP", grade: "L2 EPS",       location: "Le Rheu",   xp: 8900,  img: "https://i.pravatar.cc/150?img=22", color: "#f59e0b" },
+        { id: 14, name: "Jade Leroy",           initials: "JL", grade: "L1 Bio",       location: "Gayeulles", xp: 8600,  img: "https://i.pravatar.cc/150?img=40", color: "#e879f9" },
+        { id: 15, name: "Romain Mercier",       initials: "RM", grade: "L3 STAPS",     location: "Campus",    xp: 8100,  img: "https://i.pravatar.cc/150?img=12", color: "#64748b" },
+        { id: 16, name: "Lucie Bonnet",         initials: "LB", grade: "M1 Kiné",      location: "Thabor",    xp: 7800,  img: "https://i.pravatar.cc/150?img=49", color: "#06b6d4" },
+        { id: 17, name: "Nicolas Garnier",      initials: "NG", grade: "L2 Maths",     location: "St-Martin", xp: 7400,  img: "https://i.pravatar.cc/150?img=18", color: "#84cc16" },
+        { id: 18, name: "Chloé Renard",         initials: "CR", grade: "L1 STAPS",     location: "Apigné",    xp: 7100,  img: "https://i.pravatar.cc/150?img=45", color: "#fb7185" },
+        { id: 19, name: "Alexis Morin",         initials: "AM", grade: "L3 INFO",      location: "Liffré",    xp: 6800,  img: "https://i.pravatar.cc/150?img=16", color: "#7c3aed" },
+        { id: 20, name: "Manon Blanc",          initials: "MB", grade: "L2 Bio",       location: "Gayeulles", xp: 6500,  img: "https://i.pravatar.cc/150?img=33", color: "#c084fc" },
+        { id: 21, name: "Baptiste Simon",       initials: "BS", grade: "M1 EPS",       location: "Campus",    xp: 6200,  img: "https://i.pravatar.cc/150?img=21", color: "#38bdf8" },
+        { id: 22, name: "Zoé Gauthier",         initials: "ZG", grade: "L1 STAPS",     location: "Thabor",    xp: 5900,  img: "https://i.pravatar.cc/150?img=41", color: "#fb923c" },
+        { id: 23, name: "Tristan Dupuis",       initials: "TD", grade: "L3 EPS",       location: "Le Rheu",   xp: 5600,  img: "https://i.pravatar.cc/150?img=10", color: "#4ade80" },
+        { id: 24, name: "Laura Perrin",         initials: "LP", grade: "M2 STAPS",     location: "Soeuvres",  xp: 5400,  img: "https://i.pravatar.cc/150?img=28", color: "#f472b6" },
+        { id: 25, name: "Quentin Blanc",        initials: "QB", grade: "L2 Droit",     location: "St-Martin", xp: 5100,  img: "https://i.pravatar.cc/150?img=14", color: "#2dd4bf" },
+        { id: 26, name: "Anaïs Fournier",       initials: "AF", grade: "L1 STAPS",     location: "Gayeulles", xp: 4800,  img: "https://i.pravatar.cc/150?img=29", color: "#a78bfa" },
+        { id: 27, name: "Arnaud Girard",        initials: "AG", grade: "L3 Bio",       location: "Liffré",    xp: 4500,  img: "https://i.pravatar.cc/150?img=9",  color: "#fbbf24" },
+        { id: 28, name: "Pauline Leblanc",      initials: "PL", grade: "M1 STAPS",     location: "Apigné",    xp: 4200,  img: "https://i.pravatar.cc/150?img=30", color: "#60a5fa" },
+        { id: 29, name: "Kevin Masson",         initials: "KM", grade: "L2 EPS",       location: "Campus",    xp: 3900,  img: "https://i.pravatar.cc/150?img=8",  color: "#34d399" },
+        { id: 30, name: "Julie Faure",          initials: "JF", grade: "L1 Bio",       location: "Thabor",    xp: 3700,  img: "https://i.pravatar.cc/150?img=48", color: "#f87171" },
+        { id: 31, name: "Vincent Rousseau",     initials: "VR", grade: "L3 STAPS",     location: "Le Rheu",   xp: 3500,  img: "https://i.pravatar.cc/150?img=7",  color: "#818cf8" },
+        { id: 32, name: "Océane Roy",           initials: "OR", grade: "M1 Kiné",      location: "St-Martin", xp: 3300,  img: "https://i.pravatar.cc/150?img=46", color: "#67e8f9" },
+        { id: 33, name: "Sébastien Adam",       initials: "SA", grade: "L2 STAPS",     location: "Soeuvres",  xp: 3100,  img: "https://i.pravatar.cc/150?img=6",  color: "#a3e635" },
+        { id: 34, name: "Marion Muller",        initials: "MM", grade: "L1 Géo",       location: "Gayeulles", xp: 2900,  img: "https://i.pravatar.cc/150?img=35", color: "#e879f9" },
+        { id: 35, name: "Alexandre Brunet",     initials: "AB", grade: "L3 Maths",     location: "Campus",    xp: 2700,  img: "https://i.pravatar.cc/150?img=3",  color: "#94a3b8" },
+        { id: 36, name: "Audrey Franck",        initials: "AF", grade: "M2 EPS",       location: "Liffré",    xp: 2500,  img: "https://i.pravatar.cc/150?img=27", color: "#fb7185" },
+        { id: 37, name: "Maxime Schmitt",       initials: "MS", grade: "L2 INFO",      location: "Apigné",    xp: 2300,  img: "https://i.pravatar.cc/150?img=4",  color: "#7dd3fc" },
+        { id: 38, name: "Caroline Bertrand",    initials: "CB", grade: "L1 STAPS",     location: "Thabor",    xp: 2100,  img: "https://i.pravatar.cc/150?img=26", color: "#f9a8d4" },
+        { id: 39, name: "François Leclerc",     initials: "FL", grade: "L3 Droit",     location: "Le Rheu",   xp: 1900,  img: "https://i.pravatar.cc/150?img=2",  color: "#5eead4" },
+        { id: 40, name: "Stéphanie Colin",      initials: "SC", grade: "M1 Bio",       location: "St-Martin", xp: 1800,  img: "https://i.pravatar.cc/150?img=43", color: "#fcd34d" },
+        { id: 41, name: "Guillaume Lambert",    initials: "GL", grade: "L2 EPS",       location: "Gayeulles", xp: 1600,  img: "https://i.pravatar.cc/150?img=23", color: "#86efac" },
+        { id: 42, name: "Nathalie Guérin",      initials: "NG", grade: "L1 STAPS",     location: "Soeuvres",  xp: 1500,  img: "https://i.pravatar.cc/150?img=31", color: "#c4b5fd" },
+        { id: 43, name: "Laurent Morel",        initials: "LM", grade: "M2 Kiné",      location: "Liffré",    xp: 1400,  img: "https://i.pravatar.cc/150?img=24", color: "#93c5fd" },
+        { id: 44, name: "Anne-Sophie Torres",   initials: "AT", grade: "L3 STAPS",     location: "Apigné",    xp: 1300,  img: "https://i.pravatar.cc/150?img=42", color: "#fda4af" },
+        { id: 45, name: "Pierre Roux",          initials: "PR", grade: "L2 Bio",       location: "Campus",    xp: 1200,  img: "https://i.pravatar.cc/150?img=1",  color: "#6ee7b7" },
+        { id: 46, name: "Émilie Gonzalez",      initials: "EG", grade: "L1 STAPS",     location: "Thabor",    xp: 1100,  img: "https://i.pravatar.cc/150?img=37", color: "#fdba74" },
+        { id: 47, name: "Benoît Christophe",    initials: "BC", grade: "L3 INFO",      location: "Le Rheu",   xp: 1000,  img: "https://i.pravatar.cc/150?img=5",  color: "#d8b4fe" },
+        { id: 48, name: "Jennifer Clément",     initials: "JC", grade: "M1 STAPS",     location: "St-Martin", xp: 900,   img: "https://i.pravatar.cc/150?img=34", color: "#99f6e4" },
+        { id: 49, name: "Julien Potier",        initials: "JP", grade: "L2 EPS",       location: "Gayeulles", xp: 800,   img: "https://i.pravatar.cc/150?img=55", color: "#cbd5e1" },
+        { id: 50, name: "Aurélie Marchand",     initials: "AM", grade: "L1 Géo",       location: "Soeuvres",  xp: 700,   img: "https://i.pravatar.cc/150?img=39", color: "#f0abfc" },
+        { id: 51, name: "Christophe Barbier",   initials: "CB", grade: "L3 STAPS",     location: "Liffré",    xp: 600,   img: "https://i.pravatar.cc/150?img=56", color: "#bfdbfe" },
+        { id: 52, name: "Sandrine Torres",      initials: "ST", grade: "M2 EPS",       location: "Teillay",   xp: 500,   img: "https://i.pravatar.cc/150?img=50", color: "#fecaca" }
+    ],
+
+    // Réponses aléatoires du bot de messagerie (20 réponses pré-définies)
+    botReplies: [
+        "T'es chaud aujourd'hui ! 💪",
+        "Respect, l'algo a tout validé ?",
+        "Je vais y aller demain matin !",
+        "Tu bats mes records là... 😤",
+        "GG ! C'est quoi ton prochain objectif ?",
+        "L'algo est plus clément avec toi qu'avec moi 😭",
+        "J'aurais pas tenu autant longtemps !",
+        "Sérieusement ? T'as fait tout ça en une session ?",
+        "On doit faire ça ensemble un de ces jours !",
+        "Trop bien ! La météo était parfaite pour ça ?",
+        "J'ai raté ma session aujourd'hui, flemme totale...",
+        "C'est fou, tu progresses vraiment vite !",
+        "Tu as essayé le nouveau parcours là-bas ?",
+        "Haha, l'algo est impitoyable avec moi aussi ! 😂",
+        "Super ! On se retrouve sur le terrain bientôt ?",
+        "Le terrain était boueux ? J'aime bien ça en fait.",
+        "Wah, t'es une machine ! 🤖",
+        "Moi j'ai fait que 2 ateliers... t'es trop fort·e.",
+        "La semaine prochaine j'y retourne, tu viens ?",
+        "Génial ! Ton niveau monte à une vitesse folle."
+    ],
+
+    // Historique de fausses conversations pré-remplies (5 conversations)
+    chatHistory: {
+        1: [
+            { from: 'them', text: "Salut ! T'as fait les Gayeulles ce matin ?", time: "09:14" },
+            { from: 'me', text: "Oui ! Session de grimper, c'était brutal.", time: "09:16" },
+            { from: 'them', text: "L'algo a validé ta posture du premier coup ?", time: "09:17" },
+            { from: 'me', text: "À la 2ème prise seulement 😅", time: "09:18" },
+            { from: 'them', text: "Haha pareil pour moi ! Je suis à 25k XP, t'en es où ?", time: "09:20" }
+        ],
+        3: [
+            { from: 'them', text: "Yo ! T'as vu le nouveau parcours à St-Martin ?", time: "Hier" },
+            { from: 'me', text: "Pas encore, c'est bien ?", time: "Hier" },
+            { from: 'them', text: "Intense ! Portage lourd sur 1km, les jambes flambent.", time: "Hier" },
+            { from: 'me', text: "Je tente ça ce week-end !", time: "Hier" }
+        ],
+        5: [
+            { from: 'them', text: "Salut ! Je vous vois souvent au Campus, t'es en INFO ?", time: "Lun." },
+            { from: 'me', text: "Pas exactement mais j'entraîne là-bas oui !", time: "Lun." },
+            { from: 'them', text: "Cool, on peut faire une session ensemble ?", time: "Lun." },
+            { from: 'them', text: "Les tractions sur barre, j'ai besoin de motivation 😅", time: "Lun." }
+        ],
+        9: [
+            { from: 'them', text: "La Forêt de Liffré c'est ouf ! Jamais fait un truc aussi dur.", time: "Mar." },
+            { from: 'me', text: "C'est loin mais ça vaut le déplacement non ?", time: "Mar." },
+            { from: 'them', text: "Totalement. 650 kcal en une session c'est du jamais vu pour moi.", time: "Mar." }
+        ],
+        16: [
+            { from: 'them', text: "T'as essayé Le Tour du Thabor Express ? C'est parfait pour débuter.", time: "Mer." },
+            { from: 'me', text: "Je suis plus niveau débutant mais merci 😄", time: "Mer." },
+            { from: 'them', text: "Ahah t'as raison, on le fait ensemble alors ? Pour la coach 😉", time: "Mer." }
+        ]
+    }
+};
+
+// ==========================================================================
+// 3. GESTIONNAIRE D'ÉTAT & MÉMOIRE LOCALE
 // ==========================================================================
 class Store {
     static KEY = 'hebermoov_ceo_v12_1';
@@ -146,7 +292,12 @@ class MapManager {
             { id: 'thabor', name: 'Thabor', coords: [48.114, -1.666] },
             { id: 'beaulieu', name: 'Campus', coords: [48.118, -1.637] },
             { id: 'apigne', name: 'Apigné', coords: [48.098, -1.735] },
-            { id: 'stmartin', name: 'St-Martin', coords: [48.127, -1.682] }
+            { id: 'stmartin', name: 'St-Martin', coords: [48.127, -1.682] },
+            // Nouvelles zones forestières autour de Rennes
+            { id: 'soeuvres', name: 'Bois de Soeuvres', coords: [48.090, -1.740] },
+            { id: 'rheu', name: 'Bois du Rheu', coords: [48.069, -1.793] },
+            { id: 'lifre', name: 'Forêt de Liffré', coords: [48.212, -1.512] },
+            { id: 'teillay', name: 'Forêt de Teillay', coords: [47.968, -1.501] }
         ];
 
         const c = Store.data.settings.tactical ? '#ff003c' : '#ccff00';
@@ -516,7 +667,8 @@ class App {
     }
 
     static switchSocialTab(id) {
-        ['feed', 'leaderboard'].forEach(t => {
+        // Support de 3 onglets : feed, leaderboard, messages
+        ['feed', 'leaderboard', 'messages'].forEach(t => {
             const btn = document.getElementById(`btn-soc-${t}`);
             const content = document.getElementById(`social-content-${t}`);
             if(btn) { btn.classList.replace('bg-white', 'bg-transparent'); btn.classList.replace('text-black', 'text-gray-500'); }
@@ -526,6 +678,8 @@ class App {
         const actContent = document.getElementById(`social-content-${id}`);
         if(actBtn) { actBtn.classList.replace('bg-transparent', 'bg-white'); actBtn.classList.replace('text-gray-500', 'text-black'); }
         if(actContent) { actContent.classList.remove('hidden'); actContent.classList.add('block'); actContent.style.animation = 'none'; actContent.offsetHeight; actContent.style.animation = null; }
+        // Initialise la messagerie quand l'onglet Messages est activé
+        if (id === 'messages') setTimeout(() => Messaging.renderInbox(), 50);
     }
 
     static showModal(id) {
@@ -746,5 +900,439 @@ class App {
     }
 }
 
+// ==========================================================================
+// 8. RÉSEAU SOCIAL — FIL D'ACTUALITÉ DYNAMIQUE & SYSTÈME DE LIKES
+// Pourquoi : crée une vraie dynamique communautaire autour des parcours
+// ==========================================================================
+class Social {
+    // Stockage persistant des posts likés
+    static likedPosts = new Set(JSON.parse(localStorage.getItem('hm_liked') || '[]'));
+
+    // Génère les posts dynamiques du fil d'actualité depuis SOCIAL_DB
+    static getFeedPosts() {
+        return [
+            { id: 'p1', userId: 3,  text: "Grosse session à St-Martin aujourd'hui. Portage de roche + grimper. 🌲 L'algo était intransigeant mais j'ai tout validé !", img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=800&q=80", likes: 67, time: "Il y a 1h", comments: [{ userId: 1, text: "Wow ! La section portage de St-Martin est brutale 💪" }, { userId: 4, text: "J'y vais demain, je vais essayer de battre ça !" }] },
+            { id: 'p2', userId: 9,  text: "Première fois à la Forêt de Liffré. 75 min d'entraînement nordique, 660 kcal. Le terrain est parfait pour le trail extrême ⚡", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", likes: 44, time: "Il y a 3h", comments: [{ userId: 8, text: "C'est loin de Rennes mais ça vaut largement le déplacement !" }, { userId: 2, text: "Je savais pas qu'on pouvait y aller avec l'app !" }] },
+            { id: 'p3', userId: 4,  text: "Session quadrupedie à Apigné sur les berges. Slippery terrain = double XP de fun 😂 L'algo a validé... la 4ème fois 🙈", img: "https://images.unsplash.com/photo-1511497584788-876760111969?auto=format&fit=crop&w=800&q=80", likes: 31, time: "Il y a 5h", comments: [{ userId: 7, text: "La 4ème fois ahahah 😂 l'algo sans pitié !" }] },
+            { id: 'p4', userId: 16, text: "Qui veut faire le Thabor demain matin à 7h ? Je cherche un binôme pour l'escalier de l'enfer 🔥 L'ambiance matinale est incredible.", img: null, likes: 18, time: "Il y a 6h", comments: [{ userId: 22, text: "Je suis dispo ! On se retrouve à l'entrée ?" }, { userId: 5, text: "J'aurais voulu mais j'ai cours tôt... 😔" }] },
+            { id: 'p5', userId: 10, text: "Découverte du Bois de Soeuvres aujourd'hui ! Complètement oublié de tous, des sentiers incroyables pour la quadrupedie. 🍃", img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80", likes: 89, time: "Il y a 8h", comments: [{ userId: 6, text: "J'avais même pas entendu parler de cet endroit ! Coordonnées ?" }, { userId: 12, text: "Je mets ça dans ma liste pour le week-end !" }, { userId: 19, text: "Tu m'envoies les détails du parcours STP ?" }] },
+            { id: 'p6', userId: 24, text: "Record personnel : 3 sessions consécutives cette semaine ! Mon streak est à 7 jours. La discipline ça paye vraiment ⚡💪", img: null, likes: 112, time: "Hier", comments: [{ userId: 1, text: "7 jours de streak c'est massif, bravo !! 🔥" }, { userId: 3, text: "Je vais finir par te rejoindre au classement à ce rythme 😤" }, { userId: 8, text: "Mon record c'est 4 jours... t'es un boss 👑" }] }
+        ];
+    }
+
+    // Affiche les posts dynamiques dans le conteneur dédié
+    static renderFeed() {
+        const container = document.getElementById('dynamic-feed-posts');
+        if (!container) return;
+        const posts = this.getFeedPosts();
+
+        container.innerHTML = posts.map(post => {
+            const profile = SOCIAL_DB.profiles.find(p => p.id === post.userId);
+            if (!profile) return '';
+            const isLiked = this.likedPosts.has(post.id);
+            const likeCount = post.likes + (isLiked ? 1 : 0);
+
+            const commentsHtml = post.comments.map(c => {
+                const cp = SOCIAL_DB.profiles.find(p => p.id === c.userId);
+                if (!cp) return '';
+                return `<div class="flex gap-3">
+                    <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center font-black text-white text-[9px] overflow-hidden" style="background:${cp.color};">
+                        <img src="${cp.img}" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentNode.innerText='${cp.initials}'">
+                    </div>
+                    <div class="flex flex-col"><span class="font-bold text-xs text-white">${cp.name}</span><span class="text-xs text-gray-400">${c.text}</span></div>
+                </div>`;
+            }).join('');
+
+            return `<div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[32px] p-6 border border-white-10 shadow-lg">
+                <div class="flex items-center justify-between mb-5">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-full overflow-hidden border-2 flex-shrink-0 flex items-center justify-center font-black text-white text-lg" style="border-color:${profile.color};background:${profile.color}22;">
+                            <img src="${profile.img}" class="w-full h-full object-cover" onerror="this.style.display='none';this.parentNode.innerText='${profile.initials}'">
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="font-bold text-base text-white">${profile.name}</span>
+                            <span class="text-xs text-gray-500 font-bold tracking-widest uppercase mt-1"><i class="fas fa-map-marker-alt mr-1" style="color:${profile.color}"></i>${profile.location} • ${profile.time}</span>
+                        </div>
+                    </div>
+                    <button class="text-xs font-bold text-gray-500 px-3 py-1.5 rounded-full border border-white-10 hover:bg-gray-800 transition-colors" onclick="Messaging.openChat(${profile.id}); App.switchSocialTab('messages');">Message</button>
+                </div>
+                <p class="text-base font-medium leading-relaxed mb-5 text-gray-300">${post.text}</p>
+                ${post.img ? `<div class="w-full h-64 rounded-[24px] bg-gray-800 overflow-hidden mb-5 border border-white-5 shadow-inner"><img src="${post.img}" class="w-full h-full object-cover"></div>` : ''}
+                <div class="flex items-center gap-6 pt-3 border-t border-white-5 mb-5">
+                    <button class="flex items-center gap-2 font-bold text-base transition-all active:scale-90" onclick="Social.toggleLike('${post.id}', ${post.likes})" id="like-btn-${post.id}">
+                        <i class="fas fa-heart text-xl transition-all" id="like-heart-${post.id}" style="color:${isLiked ? '#ef4444' : '#737373'};"></i>
+                        <span id="like-count-${post.id}" style="color:${isLiked ? '#ef4444' : '#737373'}">${likeCount}</span>
+                    </button>
+                </div>
+                ${commentsHtml ? `<div class="flex flex-col gap-3 bg-gray-800/50 rounded-3xl p-4 border border-white-5">${commentsHtml}</div>` : ''}
+            </div>`;
+        }).join('');
+    }
+
+    // Toggle like avec animation et persistance localStorage
+    static toggleLike(postId, baseLikes) {
+        const countEl = document.getElementById(`like-count-${postId}`);
+        const heartEl = document.getElementById(`like-heart-${postId}`);
+        if (!countEl || !heartEl) return;
+
+        const wasLiked = this.likedPosts.has(postId);
+        if (wasLiked) {
+            this.likedPosts.delete(postId);
+            countEl.textContent = baseLikes;
+            heartEl.style.color = '#737373';
+            countEl.style.color = '#737373';
+        } else {
+            this.likedPosts.add(postId);
+            countEl.textContent = baseLikes + 1;
+            heartEl.style.color = '#ef4444';
+            countEl.style.color = '#ef4444';
+            heartEl.style.transform = 'scale(1.5)';
+            setTimeout(() => { heartEl.style.transform = 'scale(1)'; }, 300);
+        }
+        heartEl.style.transition = 'transform 0.3s var(--spring), color 0.2s';
+        localStorage.setItem('hm_liked', JSON.stringify([...this.likedPosts]));
+    }
+}
+
+// ==========================================================================
+// 9. SYSTÈME DE MESSAGERIE — INBOX + CHAT + BOT AUTO-RÉPONDEUR
+// Pourquoi : crée de l'engagement entre utilisateurs et valorise les parcours
+// ==========================================================================
+class Messaging {
+    static currentChatUserId = null;
+    static conversations = JSON.parse(localStorage.getItem('hm_convs') || '{}');
+
+    // Initialise les conversations depuis l'historique factice pré-rempli
+    static init() {
+        Object.keys(SOCIAL_DB.chatHistory).forEach(userId => {
+            const id = parseInt(userId);
+            if (!this.conversations[id]) {
+                this.conversations[id] = [...SOCIAL_DB.chatHistory[id]];
+            }
+        });
+    }
+
+    // Affiche la liste des conversations (inbox)
+    static renderInbox() {
+        const container = document.getElementById('messaging-inbox-list');
+        if (!container) return;
+
+        // Priorité aux contacts avec historique, puis autres profils
+        const withHistory = Object.keys(SOCIAL_DB.chatHistory).map(Number);
+        const priority = SOCIAL_DB.profiles.filter(p => withHistory.includes(p.id));
+        const others = SOCIAL_DB.profiles.filter(p => !withHistory.includes(p.id)).slice(0, 10);
+        const displayed = [...priority, ...others];
+
+        container.innerHTML = displayed.map(profile => {
+            const conv = this.conversations[profile.id] || SOCIAL_DB.chatHistory[profile.id] || [];
+            const lastMsg = conv[conv.length - 1];
+            const preview = lastMsg ? lastMsg.text.substring(0, 38) + (lastMsg.text.length > 38 ? '...' : '') : 'Commencer une conversation...';
+            const timeLabel = lastMsg ? lastMsg.time : '';
+
+            return `<button class="w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-gray-800 active:scale-95 transition-all text-left border border-transparent hover:border-white-5" onclick="Messaging.openChat(${profile.id})">
+                <div class="w-14 h-14 rounded-full overflow-hidden border-2 flex-shrink-0 flex items-center justify-center font-black text-white text-lg relative" style="border-color:${profile.color};background:${profile.color}22;">
+                    <img src="${profile.img}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                    <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-gray-900"></span>
+                </div>
+                <div class="flex flex-col flex-1 min-w-0">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="font-bold text-white text-base">${profile.name}</span>
+                        <span class="text-[10px] text-gray-500 font-medium flex-shrink-0 ml-2">${timeLabel}</span>
+                    </div>
+                    <span class="text-sm text-gray-400 truncate">${preview}</span>
+                </div>
+            </button>`;
+        }).join('');
+    }
+
+    // Ouvre le chat avec un profil spécifique
+    static openChat(userId) {
+        this.currentChatUserId = userId;
+        const profile = SOCIAL_DB.profiles.find(p => p.id === userId);
+        if (!profile) return;
+
+        if (!this.conversations[userId]) {
+            this.conversations[userId] = SOCIAL_DB.chatHistory[userId] ? [...SOCIAL_DB.chatHistory[userId]] : [];
+        }
+
+        const inboxEl = document.getElementById('messaging-inbox');
+        const chatEl = document.getElementById('messaging-chat');
+        if (inboxEl) inboxEl.style.display = 'none';
+        if (chatEl) chatEl.style.display = 'flex';
+
+        App.setText('chat-user-name', profile.name);
+        App.setText('chat-user-grade', profile.grade + ' • ' + profile.location);
+        const avatarEl = document.getElementById('chat-user-avatar');
+        if (avatarEl) { avatarEl.src = profile.img; avatarEl.style.borderColor = profile.color; }
+
+        this.renderChat(userId);
+    }
+
+    // Ferme le chat et revient à la liste
+    static closeChat() {
+        const inboxEl = document.getElementById('messaging-inbox');
+        const chatEl = document.getElementById('messaging-chat');
+        if (inboxEl) inboxEl.style.display = '';
+        if (chatEl) chatEl.style.display = 'none';
+        this.currentChatUserId = null;
+        this.renderInbox();
+    }
+
+    // Envoie un message et déclenche la réponse bot après délai
+    static sendMessage(text) {
+        if (!text || !text.trim() || !this.currentChatUserId) return;
+        const userId = this.currentChatUserId;
+        if (!this.conversations[userId]) this.conversations[userId] = [];
+
+        const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        this.conversations[userId].push({ from: 'me', text: text.trim(), time: now });
+        this.saveConversations();
+        this.renderChat(userId);
+
+        const input = document.getElementById('chat-input');
+        if (input) input.value = '';
+
+        // Le bot répond après un délai aléatoire (1.2s - 3s)
+        const delay = 1200 + Math.random() * 1800;
+        const typingEl = document.getElementById('chat-typing');
+        if (typingEl) { typingEl.style.display = 'flex'; }
+        setTimeout(() => {
+            if (typingEl) typingEl.style.display = 'none';
+            const response = this.getBotResponse(text, userId);
+            const replyTime = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            this.conversations[userId].push({ from: 'them', text: response, time: replyTime });
+            this.saveConversations();
+            this.renderChat(userId);
+            const profile = SOCIAL_DB.profiles.find(p => p.id === userId);
+            if (profile) DynamicIsland.show(profile.name, response.substring(0, 35) + (response.length > 35 ? '...' : ''), 'comment');
+        }, delay);
+    }
+
+    // Génère une réponse contextuelle ou aléatoire selon le message envoyé
+    static getBotResponse(message, userId) {
+        const msg = message.toLowerCase();
+        const profile = SOCIAL_DB.profiles.find(p => p.id === userId);
+
+        if (msg.includes('gayeulles') || msg.includes('forêt') || msg.includes('foret') || msg.includes('soeuvres') || msg.includes('liffré') || msg.includes('rheu') || msg.includes('teillay')) {
+            const r = ["Les forêts de Rennes sont incroyables ! 🌲 Mon terrain préféré.", `${profile?.location} c'est excellent pour l'Hébert, j'y vais souvent !`, "Ouais c'est mon terrain de prédilection, la section grimper est top !"]; return r[Math.floor(Math.random() * r.length)];
+        }
+        if (msg.includes('xp') || msg.includes('level') || msg.includes('niveau')) {
+            return `Moi je suis à ${((profile?.xp || 5000) / 1000).toFixed(1)}k XP ! Tu me rattrapes ? 😤`;
+        }
+        if (msg.includes('session') || msg.includes('entraînement') || msg.includes('training') || msg.includes('parcours')) {
+            const r = ["Super session ! L'algo a été sympa avec toi ? 😂", "Respect ! Moi j'ai skippé aujourd'hui, trop fatigué...", "Tu as fait combien d'ateliers en tout ?"]; return r[Math.floor(Math.random() * r.length)];
+        }
+        if (msg.includes('kcal') || msg.includes('calorie')) return "Woooh, t'as tout cramé ! Faut se ravitailler en tartines maintenant 🥪";
+        if (msg.includes('salut') || msg.includes('bonjour') || msg.includes('coucou') || msg.includes('yo') || msg.includes('hello')) {
+            return `Salut ${Store.data.profile.name.split(' ')[0]} ! 👋 Tu vas t'entraîner aujourd'hui ?`;
+        }
+        if (msg.includes('gg') || msg.includes('bravo') || msg.includes('félicitations') || msg.includes('top')) return "Merci ! Et toi, tu as fait une session récemment ? 💪";
+        if (msg.includes('météo') || msg.includes('pluie') || msg.includes('temps')) return "La pluie ça donne +20% XP ! Perso j'adore m'entraîner sous les averses bretonnes. 🌧️";
+        if (msg.includes('?')) {
+            const r = ["Bonne question ! Demande à l'algo 😄", "Franchement j'en sais rien, faut tester !", "Je pense que oui, mais reste prudent·e !"]; return r[Math.floor(Math.random() * r.length)];
+        }
+        return SOCIAL_DB.botReplies[Math.floor(Math.random() * SOCIAL_DB.botReplies.length)];
+    }
+
+    // Affiche les bulles de messages dans la vue chat
+    static renderChat(userId) {
+        const container = document.getElementById('chat-messages');
+        if (!container) return;
+        const conversation = this.conversations[userId] || [];
+        container.innerHTML = conversation.map(msg => {
+            const isMe = msg.from === 'me';
+            return `<div class="flex ${isMe ? 'justify-end' : 'justify-start'} mb-2">
+                <div class="max-w-[78%] ${isMe ? 'bg-volt text-black' : 'bg-gray-800 text-white border border-white-5'} rounded-[20px] ${isMe ? 'rounded-br-md' : 'rounded-bl-md'} px-4 py-3 shadow-sm">
+                    <p class="text-sm font-medium leading-relaxed">${msg.text}</p>
+                    <span class="text-[10px] ${isMe ? 'text-black/50' : 'text-gray-500'} font-bold mt-1 block text-right">${msg.time}</span>
+                </div>
+            </div>`;
+        }).join('');
+        container.scrollTop = container.scrollHeight;
+    }
+
+    static saveConversations() { localStorage.setItem('hm_convs', JSON.stringify(this.conversations)); }
+}
+
+// ==========================================================================
+// 10. SYSTÈME DE RECHERCHE AVANCÉE — FILTRAGE EN TEMPS RÉEL
+// Pourquoi : améliore massivement la découverte des parcours (19 routes !)
+// ==========================================================================
+class Search {
+    // Filtre les parcours en temps réel selon la saisie utilisateur
+    static filter(query) {
+        const q = query.toLowerCase().trim();
+        const searchResults = document.getElementById('search-results');
+        const parkSection = document.getElementById('parks-section');
+        const clearBtn = document.getElementById('search-clear-btn');
+        if (clearBtn) clearBtn.style.display = q ? 'block' : 'none';
+
+        if (!q) {
+            if (searchResults) searchResults.classList.add('hidden');
+            if (parkSection) parkSection.classList.remove('hidden');
+            return;
+        }
+        if (parkSection) parkSection.classList.add('hidden');
+        if (searchResults) searchResults.classList.remove('hidden');
+
+        // Cherche dans tous les parcours (titre, type, niveau, familles)
+        const matches = Object.keys(DB.routes).filter(id => {
+            const r = DB.routes[id];
+            return r.title.toLowerCase().includes(q) || r.type.toLowerCase().includes(q) ||
+                   r.level.toLowerCase().includes(q) || r.steps.some(s => s.c && s.c.toLowerCase().includes(q));
+        }).map(id => ({ id, ...DB.routes[id] }));
+
+        if (matches.length === 0) {
+            searchResults.innerHTML = `<div class="text-center py-10 text-gray-500"><i class="fas fa-search text-3xl mb-4 block opacity-30"></i><p class="font-bold">Aucun parcours pour "${query}"</p><p class="text-sm mt-2 font-medium">Essayez : forêt, grimper, Élite, Course…</p></div>`;
+            return;
+        }
+
+        const levelColor = l => l === 'Élite' ? '#ef4444' : l === 'Intense' ? '#f97316' : l === 'Débutant' ? '#22c55e' : '#a3a3a3';
+        searchResults.innerHTML = `<p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-4">${matches.length} parcours trouvé${matches.length > 1 ? 's' : ''}</p>` +
+            matches.map(r => `<div class="w-full bg-gray-900/80 backdrop-blur-md rounded-[24px] p-4 border border-white-10 cursor-pointer active:scale-95 transition-transform shadow-md flex gap-4 items-center mb-3" onclick="App.openRoutePreview('${r.id}')">
+                <img src="${r.img}" class="w-16 h-16 rounded-[16px] object-cover flex-shrink-0 border border-white-5">
+                <div class="flex flex-col flex-1 min-w-0">
+                    <h4 class="font-bold text-white text-base truncate">${r.title}</h4>
+                    <p class="text-xs font-bold mt-1 uppercase tracking-wide" style="color:var(--volt)">${r.type}</p>
+                    <div class="flex items-center gap-3 mt-1.5 text-xs font-bold text-gray-400">
+                        <span><i class="fas fa-stopwatch mr-1"></i>${r.time}</span>
+                        <span><i class="fas fa-fire mr-1"></i>${r.kcal} kcal</span>
+                        <span style="color:${levelColor(r.level)}">${r.level}</span>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-right text-gray-600 text-sm flex-shrink-0"></i>
+            </div>`).join('');
+    }
+
+    static clearSearch() {
+        const input = document.getElementById('explore-search');
+        if (input) input.value = '';
+        this.filter('');
+    }
+}
+
+// ==========================================================================
+// 11. SYSTÈME DE BADGES — RÉCOMPENSES VISUELLES DÉBLOQUABLES
+// Pourquoi : gamification renforcée, motive à diversifier les entraînements
+// ==========================================================================
+const BADGES_DB = [
+    { id: 'first-session', icon: 'fa-star',           name: 'Première Mission',   desc: 'Complétez votre 1ère session',       color: '#ccff00', condition: s => s.stats.parks >= 1 },
+    { id: 'hydration',     icon: 'fa-tint',            name: 'Hydro-Pro',          desc: 'Atteignez 3L d\'eau en une journée', color: '#3b82f6', condition: s => s.stats.water >= 3 },
+    { id: 'nomade',        icon: 'fa-tree',            name: 'Nomade Forestier',   desc: 'Visitez 5 zones différentes',        color: '#22c55e', condition: s => s.stats.parks >= 5 },
+    { id: 'kcal1k',        icon: 'fa-fire',            name: 'Incendiaire',        desc: 'Brûlez 1000 kcal au total',          color: '#ef4444', condition: s => s.stats.kcal >= 1000 },
+    { id: 'level5',        icon: 'fa-bolt',            name: 'CEO Niveau 5',       desc: 'Atteignez le niveau 5',              color: '#f97316', condition: s => s.level >= 5 },
+    { id: 'actionist',     icon: 'fa-dumbbell',        name: 'Actionniste',        desc: 'Complétez 20 ateliers',              color: '#a855f7', condition: s => s.stats.actions >= 20 },
+    { id: 'grimper',       icon: 'fa-mountain',        name: 'Grimpeur Pro',       desc: 'Maîtrisez Grimper (x10)',            color: '#14b8a6', condition: s => (s.skills.Grimper || 0) >= 10 },
+    { id: 'streak7',       icon: 'fa-calendar-check',  name: 'Semaine de Feu',     desc: 'Série de 7 jours consécutifs',       color: '#f59e0b', condition: s => s.streak >= 7 }
+];
+
+class Badges {
+    static getEarned() { return BADGES_DB.filter(b => b.condition(Store.data)); }
+
+    // Rendu visuel de tous les badges (débloqués + verrouillés en grisé)
+    static renderBadges() {
+        const container = document.getElementById('badges-container');
+        if (!container) return;
+        const earned = new Set(this.getEarned().map(b => b.id));
+        container.innerHTML = BADGES_DB.map(badge => {
+            const unlocked = earned.has(badge.id);
+            return `<div class="flex flex-col items-center gap-2 cursor-pointer active:scale-90 transition-transform" onclick="DynamicIsland.show('${badge.name}', '${badge.desc}', '${badge.icon.replace('fa-', '')}')">
+                <div class="w-16 h-16 rounded-[20px] flex items-center justify-center text-2xl shadow-lg transition-all ${unlocked ? '' : 'opacity-20 grayscale'}" style="background:${badge.color}22;border:2px solid ${unlocked ? badge.color : '#333'};">
+                    <i class="fas ${badge.icon}" style="color:${badge.color}"></i>
+                </div>
+                <span class="text-[9px] font-bold text-center leading-tight ${unlocked ? 'text-white' : 'text-gray-600'}" style="max-width:64px;">${badge.name}</span>
+            </div>`;
+        }).join('');
+    }
+}
+
+// ==========================================================================
+// 12. DÉFI QUOTIDIEN — CHALLENGE ALÉATOIRE AVEC COMPTE À REBOURS
+// Pourquoi : crée un rituel journalier qui booste l'engagement quotidien
+// ==========================================================================
+const DAILY_CHALLENGES = [
+    { icon: 'fa-running',       title: '1 Minute de Sprint',     desc: 'Courez le plus vite possible pendant 60 secondes. Tout terrain valide.', xp: 150, duration: 60 },
+    { icon: 'fa-street-view',   title: '2min de Gainage',        desc: 'Position de planche, dos plat, respiration maîtrisée. 2 minutes.', xp: 120, duration: 120 },
+    { icon: 'fa-dumbbell',      title: '20 Pompes Explosives',   desc: 'Pompes avec clap au sommet, explosivité maximale sur chaque rep.', xp: 130, duration: 120 },
+    { icon: 'fa-horse-head',    title: '30 Squats Profonds',     desc: 'Cuisses parallèles au sol, descent lente (3s), remontée explosive.', xp: 110, duration: 90 },
+    { icon: 'fa-mountain',      title: 'Grimper 5min',          desc: 'Trouvez un arbre ou une structure et grimpez en continu 5 minutes.', xp: 200, duration: 300 },
+    { icon: 'fa-water',         title: 'Boire 1L Maintenant',   desc: 'Hydratation d\'urgence : boire 1 litre d\'eau sur les 20 prochaines minutes.', xp: 80, duration: 20 * 60 }
+];
+
+class DailyChallenge {
+    static timer = null;
+    static timeLeft = 0;
+    static isRunning = false;
+
+    // Récupère le défi du jour (change chaque jour grâce à la date)
+    static getTodayChallenge() {
+        const dayOfYear = Math.floor((new Date() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+        return DAILY_CHALLENGES[dayOfYear % DAILY_CHALLENGES.length];
+    }
+
+    // Met à jour l'affichage de la carte de défi quotidien
+    static renderCard() {
+        const titleEl = document.getElementById('daily-challenge-title');
+        const descEl = document.getElementById('daily-challenge-desc');
+        const xpEl = document.getElementById('daily-challenge-xp');
+        const iconEl = document.getElementById('daily-challenge-icon');
+        const challenge = this.getTodayChallenge();
+        if (titleEl) titleEl.textContent = challenge.title;
+        if (descEl) descEl.textContent = challenge.desc;
+        if (xpEl) xpEl.textContent = '+' + challenge.xp + ' XP';
+        if (iconEl) { iconEl.className = 'fas ' + challenge.icon + ' text-3xl'; }
+    }
+
+    // Lance le compte à rebours du défi
+    static startTimer() {
+        const challenge = this.getTodayChallenge();
+        if (this.isRunning) { this.stopTimer(); return; }
+        this.isRunning = true;
+        this.timeLeft = challenge.duration;
+        const btn = document.getElementById('daily-challenge-btn');
+        if (btn) btn.textContent = 'STOPPER';
+
+        this.timer = setInterval(() => {
+            this.timeLeft--;
+            const timerEl = document.getElementById('daily-challenge-timer');
+            if (timerEl) {
+                const m = Math.floor(this.timeLeft / 60);
+                const s = this.timeLeft % 60;
+                timerEl.textContent = `${m > 0 ? m + 'm ' : ''}${s}s`;
+                timerEl.style.display = 'block';
+            }
+            if (this.timeLeft <= 0) {
+                this.stopTimer();
+                Store.data.xp += challenge.xp;
+                Store.save();
+                App.refreshUI();
+                DynamicIsland.show('Défi Quotidien', `+${challenge.xp} XP ! Mission accomplie.`, 'trophy');
+                const timerEl = document.getElementById('daily-challenge-timer');
+                if (timerEl) timerEl.textContent = '✓ Complété !';
+                const btn = document.getElementById('daily-challenge-btn');
+                if (btn) { btn.textContent = 'COMPLÉTÉ ✓'; btn.disabled = true; btn.style.opacity = '0.5'; }
+            }
+        }, 1000);
+        DynamicIsland.show('Défi Quotidien', 'Compte à rebours lancé. En avant !', 'stopwatch');
+    }
+
+    static stopTimer() {
+        if (this.timer) clearInterval(this.timer);
+        this.isRunning = false;
+        this.timer = null;
+        const btn = document.getElementById('daily-challenge-btn');
+        if (btn && btn.textContent !== 'COMPLÉTÉ ✓') btn.textContent = 'RELANCER';
+    }
+}
+
+// ==========================================================================
 // LANCEMENT IMMEDIAT
 App.init();
+
+// Initialisation des nouveaux systèmes après le démarrage principal
+setTimeout(() => {
+    Messaging.init();
+    Social.renderFeed();
+    Badges.renderBadges();
+    DailyChallenge.renderCard();
+}, 200);

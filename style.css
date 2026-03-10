@@ -443,3 +443,63 @@ body.tactical-mode #app-shell { animation: tactical-glitch 0.2s ease-in-out; }
     .h-72 { height: 14rem; } .pt-28 { padding-top: 5rem; } .pb-32 { padding-bottom: 6rem; }
     .text-4xl { font-size: 2rem; line-height: 2.25rem; }
 }
+
+/* ==========================================================================
+   8. NOUVEAUX COMPOSANTS — Recherche, Messagerie, Badges, Défi Quotidien
+   ========================================================================== */
+
+/* Barre de recherche — focus glow animé */
+#explore-search:focus { outline: none; }
+#explore-search::placeholder { transition: opacity 0.3s ease; }
+#explore-search:focus::placeholder { opacity: 0.4; }
+
+/* Résultats de recherche — animation d'entrée */
+#search-results { animation: slide-up-fade 0.3s var(--spring) forwards; }
+
+/* Bulles de messages — transition fluide */
+#chat-messages > div { animation: slide-up-fade 0.25s var(--spring) forwards; }
+#chat-messages { max-height: 55vh; overflow-y: auto; scroll-behavior: smooth; }
+
+/* Inbox messages — scroll propre */
+#messaging-inbox-list { max-height: 65vh; overflow-y: auto; }
+#messaging-inbox-list::-webkit-scrollbar { display: none; }
+
+/* Badges container — grid responsive */
+#badges-container { grid-template-columns: repeat(4, 1fr); }
+#badges-container > div { transition: transform 0.2s var(--spring); }
+#badges-container > div:active { transform: scale(0.88); }
+
+/* Daily Challenge — glow pulsant sur le bouton XP */
+#daily-challenge-btn:not(:disabled) {
+    box-shadow: 0 0 20px rgba(204,255,0,0.4);
+    transition: box-shadow 0.3s ease, transform 0.15s var(--spring);
+}
+#daily-challenge-btn:not(:disabled):active {
+    box-shadow: 0 0 10px rgba(204,255,0,0.2);
+}
+body.tactical-mode #daily-challenge-btn:not(:disabled) {
+    box-shadow: 0 0 20px rgba(255,0,60,0.4);
+}
+
+/* Timer du défi — animation de pulsation quand actif */
+#daily-challenge-timer[style*="block"] { animation: pulse 1s ease-in-out infinite; }
+
+/* Scroll horizontal des onglets de parcs */
+.overflow-x-auto.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+.overflow-x-auto.hide-scrollbar::-webkit-scrollbar { display: none; }
+
+/* Like button — animation spring */
+[id^="like-btn-"] { transition: transform 0.2s var(--spring); }
+[id^="like-btn-"]:active { transform: scale(0.85); }
+[id^="like-heart-"] { transition: transform 0.3s var(--spring), color 0.2s ease; display: inline-block; }
+
+/* Chat input focus */
+#chat-input:focus { outline: none; }
+.focus-within\:border-volt:focus-within { border-color: var(--volt) !important; }
+
+/* Parks section — transition douce */
+#parks-section { transition: opacity 0.2s ease; }
+#search-results > div[class*="rounded"] { animation: slide-up-fade 0.3s var(--spring) both; }
+#search-results > div[class*="rounded"]:nth-child(2) { animation-delay: 0.05s; }
+#search-results > div[class*="rounded"]:nth-child(3) { animation-delay: 0.1s; }
+#search-results > div[class*="rounded"]:nth-child(4) { animation-delay: 0.15s; }
