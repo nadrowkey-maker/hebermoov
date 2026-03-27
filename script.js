@@ -922,34 +922,21 @@ class App {
     }
 
     static nextStep() {
-    if (!this.session.route) return;
-
-    // Fermer la vidéo si ouverte
-    if (window.VideoPlayer) VideoPlayer.close();
-
-    // Incrémenter d'abord
-    this.session.step++;
-
-    // Vérifier si session terminée
-    if (this.session.step >= this.session.route.steps.length) {
-        this.concludeSession();
-        return;
+        if (!this.session.route) return;
+        if (window.VideoPlayer) VideoPlayer.close();
+        this.session.step++;
+        if (this.session.step >= this.session.route.steps.length) {
+            this.concludeSession();
+            return;
+        }
+        this.updateSessionUI();
+        const newStep = this.session.route.steps[this.session.step];
+        if (newStep && newStep.video_id && window.VideoPlayer) {
+            setTimeout(() => {
+                VideoPlayer.open(newStep.video_id, newStep.t);
+            }, 600);
+        }
     }
-
-    // Mettre à jour l'affichage avec la nouvelle étape
-    this.updateSessionUI();
-
-    // Lancer la vidéo de la nouvelle étape si elle en a une
-    const newStep = this.session.route.steps[this.session.step];
-    if (newStep && newStep.video_id && window.VideoPlayer) {
-        setTimeout(() => {
-            VideoPlayer.open(newStep.video_id, newStep.t);
-        }, 600);
-    }
-}
-
-    this.session.step++;
-}
     static concludeSession() {
         const sModal = document.getElementById('session-active-modal');
         if(sModal) { sModal.style.transform = 'translateY(100%)'; setTimeout(() => sModal.classList.add('hidden'), 500); }
