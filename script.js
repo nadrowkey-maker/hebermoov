@@ -922,33 +922,31 @@ class App {
     }
 
     static nextStep() {
-    const route = this.session.route;
-    if (!route) return;
-    const step = route.steps[this.session.step];
-    if (!step) return;
+    if (!this.session.route) return;
 
-    // Fermer la vidéo précédente si elle est ouverte
+    // Fermer la vidéo si ouverte
     if (window.VideoPlayer) VideoPlayer.close();
 
-    // Mettre à jour l'affichage de l'étape
-    this.setText('step-number', `${this.session.step + 1} / ${route.steps.length}`);
-    this.setText('step-title', step.t);
-    this.setText('step-desc', step.d);
-    this.setText('step-cat', step.c);
-    this.setText('step-xp', `+${step.xp} XP`);
+    // Incrémenter d'abord
+    this.session.step++;
 
-    // Mettre en évidence l'étape active dans la liste
-    document.querySelectorAll('.step-item').forEach((el, i) => {
-        el.classList.toggle('border-volt', i === this.session.step);
-        el.classList.toggle('border-white-5', i !== this.session.step);
-    });
+    // Vérifier si session terminée
+    if (this.session.step >= this.session.route.steps.length) {
+        this.concludeSession();
+        return;
+    }
 
-    // Lancer automatiquement la vidéo si l'étape en a une
-    if (step.video_id && window.VideoPlayer) {
+    // Mettre à jour l'affichage avec la nouvelle étape
+    this.updateSessionUI();
+
+    // Lancer la vidéo de la nouvelle étape si elle en a une
+    const newStep = this.session.route.steps[this.session.step];
+    if (newStep && newStep.video_id && window.VideoPlayer) {
         setTimeout(() => {
-            VideoPlayer.open(step.video_id, step.t);
+            VideoPlayer.open(newStep.video_id, newStep.t);
         }, 600);
     }
+}
 
     this.session.step++;
 }
