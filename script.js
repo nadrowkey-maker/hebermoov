@@ -477,7 +477,7 @@ class App {
             } else {
                 DynamicIsland.show('Reconnaissance FaceID', 'Bienvenue CEO.', 'fingerprint');
             }
- ============================================================
+
 // Aperçu messages sur la home
             setTimeout(() => {
                 const container = document.getElementById('home-messages-preview');
