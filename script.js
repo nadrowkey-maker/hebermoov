@@ -922,21 +922,36 @@ class App {
     }
 
     static nextStep() {
-        const r = this.session.route; const st = r.steps[this.session.step];
-        
-        const finalXp = Math.floor(st.xp * 1.2); 
-        Store.data.xp += finalXp; 
-        Store.data.stats.actions += 1;
-        if (Store.data.skills[st.c] !== undefined) Store.data.skills[st.c] += 1;
+    const route = this.session.route;
+    if (!route) return;
+    const step = route.steps[this.session.step];
+    if (!step) return;
 
-        if (this.session.step < r.steps.length - 1) {
-            this.session.step++; this.updateSessionUI();
-            DynamicIsland.show('Validation IA', `+${finalXp} XP ajoutés.`, 'check');
-        } else {
-            this.concludeSession();
-        }
+    // Fermer la vidéo précédente si elle est ouverte
+    if (window.VideoPlayer) VideoPlayer.close();
+
+    // Mettre à jour l'affichage de l'étape
+    this.setText('step-number', `${this.session.step + 1} / ${route.steps.length}`);
+    this.setText('step-title', step.t);
+    this.setText('step-desc', step.d);
+    this.setText('step-cat', step.c);
+    this.setText('step-xp', `+${step.xp} XP`);
+
+    // Mettre en évidence l'étape active dans la liste
+    document.querySelectorAll('.step-item').forEach((el, i) => {
+        el.classList.toggle('border-volt', i === this.session.step);
+        el.classList.toggle('border-white-5', i !== this.session.step);
+    });
+
+    // Lancer automatiquement la vidéo si l'étape en a une
+    if (step.video_id && window.VideoPlayer) {
+        setTimeout(() => {
+            VideoPlayer.open(step.video_id, step.t);
+        }, 600);
     }
 
+    this.session.step++;
+}
     static concludeSession() {
         const sModal = document.getElementById('session-active-modal');
         if(sModal) { sModal.style.transform = 'translateY(100%)'; setTimeout(() => sModal.classList.add('hidden'), 500); }
