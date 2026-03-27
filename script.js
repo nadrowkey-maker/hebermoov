@@ -875,12 +875,20 @@ class App {
     }
 
     static startSession() {
-        this.session.active = true; this.session.step = 0;
-        const s = document.getElementById('session-active-modal');
-        if(s) { s.classList.remove('hidden'); setTimeout(() => s.style.transform = 'translateY(0)', 10); }
-        this.updateSessionUI();
-        DynamicIsland.show('Système Embarqué', 'Enregistrement biomécanique en cours.', 'video');
+    this.session.active = true; this.session.step = 0;
+    const s = document.getElementById('session-active-modal');
+    if(s) { s.classList.remove('hidden'); setTimeout(() => s.style.transform = 'translateY(0)', 10); }
+    this.updateSessionUI();
+    DynamicIsland.show('Système Embarqué', 'Enregistrement biomécanique en cours.', 'video');
+
+    // Lancer automatiquement la vidéo de la première étape
+    const firstStep = this.session.route.steps[0];
+    if (firstStep && firstStep.video_id && window.VideoPlayer) {
+        setTimeout(() => {
+            VideoPlayer.open(firstStep.video_id, firstStep.t);
+        }, 800);
     }
+}
 
     static updateSessionUI() {
         if(!this.session.route) return;
