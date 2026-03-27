@@ -39,7 +39,53 @@ const DB = {
         // ===== FORÊT DE TEILLAY =====
         "teillay-1": { title: "La Frontière Sauvage", type: "Forêt Extrême", time: "80 min", kcal: 720, level: "Élite", img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Mise en condition", d: "2km de marche rapide en forêt primaire bretonne.", c: "Marche", xp: 70 }, { t: "Escalade intensive", d: "Grimper 5 arbres différents en moins de 20min.", c: "Grimper", xp: 250 }, { t: "Portage extrême", d: "Porter 30kg sur 100m en terrain accidenté.", c: "Lever", xp: 200 }, { t: "Course d'évasion", d: "1km de sprint sur terrain inconnu et varié.", c: "Course", xp: 150 }] },
         "teillay-2": { title: "La Piste Celtique", type: "Nature", time: "40 min", kcal: 380, level: "Intermédiaire", img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Course sur piste", d: "1.5km sur piste boisée en terrain souple.", c: "Course", xp: 70 }, { t: "Équilibre celtique", d: "Marcher sur 3 troncs posés au sol consécutivement.", c: "Equilibre", xp: 80 }] },
-        "teillay-3": { title: "Le Rituel de l'Aube", type: "Survie Extrême", time: "55 min", kcal: 510, level: "Élite", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Reptation boueuse", d: "30m de reptation sur sol détrempé.", c: "Quadrupedie", xp: 170 }, { t: "Défense en forêt", d: "Simuler 3 séquences de défense naturelle.", c: "Defense", xp: 140 }, { t: "Sprint d'urgence", d: "500m en sprint maximum sur terrain meuble.", c: "Course", xp: 120 }] }
+        "teillay-3": { title: "Le Rituel de l'Aube", type: "Survie Extrême", time: "55 min", kcal: 510, level: "Élite", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Reptation boueuse", d: "30m de reptation sur sol détrempé.", c: "Quadrupedie", xp: 170 }, { t: "Défense en forêt", d: "Simuler 3 séquences de défense naturelle.", c: "Defense", xp: 140 }, { t: "Sprint d'urgence", d: "500m en sprint maximum sur terrain meuble.", c: "Course", xp: 120 }] },
+ // ===== BOIS DE BEAUREGARD =====
+        "beauregard-1": {
+            title: "Le Parcours Naturel",
+            type: "Forêt Débutant",
+            time: "30 min",
+            kcal: 280,
+            level: "Débutant",
+            zone: "Bois de Beauregard",
+            img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+            gps: { lat: 48.1372, lng: -1.6901 },
+            steps: [
+                {
+                    t: "Équilibre : marche sur grand mur",
+                    d: "Trouve un grand mur ou muret stable. Monte dessus et marche sur toute sa longueur en gardant l'équilibre. Bras écartés, regard fixé devant toi. Fais 3 allers-retours.",
+                    c: "Equilibre",
+                    xp: 70,
+                    video_id: "Au6klnSQMgY"
+                },
+                {
+                    t: "Courir 2km à une bonne allure",
+                    d: "Parcours 2km sur les sentiers du Bois de Beauregard à une allure soutenue mais régulière. Maintiens une respiration contrôlée. Objectif : tenir l'allure sans t'arrêter.",
+                    c: "Course",
+                    xp: 80,
+                    video_id: "hzx_JN3XWz0"
+                },
+                {
+                    t: "Franchissement d'obstacle avec banc ou muret",
+                    d: "Repère un banc ou un muret dans le parc. Franchis-le de plusieurs façons : saut à pieds joints, appui d'une main, passage en roulé. 5 franchissements de chaque côté.",
+                    c: "Saut",
+                    xp: 90,
+                    video_id: "G-gz3evrryg"
+                },
+                {
+                    t: "Lancer un bâton à 15/20 mètres",
+                    d: "Ramasse un bâton solide d'environ 60cm. Depuis une position stable, lance-le le plus loin possible en visant 15 à 20 mètres. Travaille le geste, la rotation du buste et l'extension du bras. 8 lancers.",
+                    c: "Lancer",
+                    xp: 85,
+                    video_id: "y58V3dTKDpk"
+                }
+            ]
+        }
+*/
+ 
+ 
+// 
+
     }
 };
 
@@ -325,7 +371,9 @@ class MapManager {
             const speed = (Math.random() * 0.0003) + 0.0001;
             
             const pin = L.divIcon({ className: 'custom-pin', html: `<div style="width:14px;height:14px;background:${color};border-radius:50%;box-shadow:0 0 15px ${color}; border: 2px solid #000; animation: pulse 2s infinite;"></div>` });
+             const profile = SOCIAL_DB.profiles[i % SOCIAL_DB.profiles.length];
             const m = L.marker([lat, lng], {icon: pin}).addTo(this.map);
+            m.on('click', () => MapProfiles.showProfile(profile));
             this.liveMarkers.push({ marker: m, data: { coords: [lat, lng], speed: speed }});
         }
 
@@ -434,6 +482,26 @@ class App {
             } else {
                 DynamicIsland.show('Reconnaissance FaceID', 'Bienvenue CEO.', 'fingerprint');
             }
+ ============================================================
+// Aperçu messages sur la home
+            setTimeout(() => {
+                const container = document.getElementById('home-messages-preview');
+                if (!container || !SOCIAL_DB) return;
+                const preview = SOCIAL_DB.profiles.slice(0, 3);
+                container.innerHTML = preview.map(p => `
+                    <div onclick="App.nav('view-social', document.getElementById('nav-social')); setTimeout(()=>{ App.switchSocialTab('messages'); if(window.Messaging) Messaging.openChat(${p.id}); }, 200)"
+                         class="flex items-center gap-3 p-3 rounded-2xl bg-gray-800/50 cursor-pointer active:scale-95 transition-transform mb-2">
+                        <img src="${p.img}" class="w-10 h-10 rounded-full object-cover border border-white-10"
+                             onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(p.initials)}&background=333&color=fff'">
+                        <div class="flex-1 min-w-0">
+                            <div class="font-bold text-white text-sm">${p.name}</div>
+                            <div class="text-xs text-gray-500 truncate">${p.grade} • ${p.location}</div>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-volt flex-shrink-0"></span>
+                    </div>
+                `).join('');
+            }, 2200);
+
         }, 1800);
     }
 
@@ -755,19 +823,38 @@ class App {
     // 8. MOTEUR D'ENTRAÎNEMENT & TRACKING IA (CAMERA)
     // ==========================================================================
     static openRoutePreview(id) {
-        const r = DB.routes[id];
-        if (!r) {
-            DynamicIsland.show('Erreur Géospatiale', 'Coordonnées de la zone introuvables.', 'times', true);
-            return;
-        }
-        this.session.route = r;
-        const img = document.getElementById('sheet-img'); if(img) img.src = r.img;
-        this.setText('sheet-type', r.type); this.setText('sheet-title', r.title);
-        const chk = document.getElementById('sheet-checkpoints');
-        if(chk) chk.innerHTML = r.steps.map((s, i) => `<div class="relative"><div class="absolute -left-[25px] top-1 w-3 h-3 bg-gray-900 border-2 border-volt rounded-full shadow-volt"></div><strong class="text-base font-bold text-white block">${i + 1}. ${s.t}</strong><span class="text-sm text-gray-400">${s.d}</span></div>`).join('');
-        this.showModal('route-preview-sheet');
+    const r = DB.routes[id];
+    if (!r) {
+        DynamicIsland.show('Erreur Géospatiale', 'Coordonnées de la zone introuvables.', 'times', true);
+        return;
     }
-
+    this.session.route = r;
+    const img = document.getElementById('sheet-img'); if(img) img.src = r.img;
+    this.setText('sheet-type', r.type); this.setText('sheet-title', r.title);
+    const chk = document.getElementById('sheet-checkpoints');
+    if(chk) chk.innerHTML = r.steps.map((s, i) => `
+        <div class="relative flex items-start gap-3 bg-gray-900 border border-white-10 rounded-2xl p-4 mb-3">
+            <div class="w-7 h-7 rounded-full bg-volt/10 border border-volt/30 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-volt font-black text-xs">${i + 1}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+                <strong class="text-base font-bold text-white block mb-1">${s.t}</strong>
+                <span class="text-sm text-gray-400 leading-relaxed">${s.d}</span>
+                <div class="flex items-center gap-2 mt-2">
+                    <span class="text-xs font-bold text-volt bg-volt/10 border border-volt/20 px-2 py-1 rounded-full">+${s.xp} XP</span>
+                    <span class="text-xs text-gray-500 uppercase font-bold tracking-wide">${s.c}</span>
+                </div>
+            </div>
+            ${s.video_id ? `
+                <button class="step-video-btn flex-shrink-0"
+                    onclick="VideoPlayer.open('${s.video_id}', '${s.t.replace(/'/g, "&#39;")}')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="black"><path d="M8 5v14l11-7z"/></svg>
+                </button>
+            ` : ''}
+        </div>
+    `).join('');
+    this.showModal('route-preview-sheet');
+}
     static triggerWarmup() {
         this.closeAllModals(); 
         const wOverlay = document.getElementById('warmup-overlay');
@@ -1324,6 +1411,219 @@ class DailyChallenge {
         if (btn && btn.textContent !== 'COMPLÉTÉ ✓') btn.textContent = 'RELANCER';
     }
 }
+// VideoPlayer — Modal YouTube pour les étapes avec vidéo
+const VideoPlayer = {
+    open(videoId, title) {
+        const existing = document.getElementById('video-modal-overlay');
+        if (existing) existing.remove();
+ 
+        const overlay = document.createElement('div');
+        overlay.id = 'video-modal-overlay';
+        overlay.style.cssText = [
+            'position:fixed', 'inset:0', 'z-index:99999',
+            'background:rgba(0,0,0,0.93)', 'backdrop-filter:blur(14px)',
+            'display:flex', 'flex-direction:column',
+            'align-items:center', 'justify-content:center',
+            'padding:24px', 'animation:fadeInModal 0.2s ease'
+        ].join(';');
+ 
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) VideoPlayer.close(); });
+ 
+        const titleEl = document.createElement('div');
+        titleEl.style.cssText = 'color:white;font-weight:900;font-size:15px;margin-bottom:14px;text-align:center;max-width:320px;line-height:1.3';
+        titleEl.textContent = title;
+ 
+        const iframeWrap = document.createElement('div');
+        iframeWrap.style.cssText = [
+            'width:100%', 'max-width:340px',
+            'aspect-ratio:9/16',
+            'border-radius:20px', 'overflow:hidden',
+            'border:1.5px solid rgba(204,255,0,0.3)',
+            'box-shadow:0 0 40px rgba(204,255,0,0.15)',
+            'background:#000'
+        ].join(';');
+ 
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+        iframe.style.cssText = 'width:100%;height:100%;border:none';
+        iframe.allow = 'autoplay; fullscreen';
+        iframeWrap.appendChild(iframe);
+ 
+        const closeBtn = document.createElement('button');
+        closeBtn.style.cssText = [
+            'margin-top:18px',
+            'background:rgba(255,255,255,0.1)',
+            'border:1px solid rgba(255,255,255,0.2)',
+            'color:white', 'font-weight:800',
+            'padding:12px 32px', 'border-radius:100px',
+            'font-size:13px', 'cursor:pointer',
+            'letter-spacing:0.05em', 'width:100%',
+            'max-width:340px'
+        ].join(';');
+        closeBtn.textContent = '✕  FERMER';
+        closeBtn.addEventListener('click', () => VideoPlayer.close());
+ 
+        overlay.appendChild(titleEl);
+        overlay.appendChild(iframeWrap);
+        overlay.appendChild(closeBtn);
+        document.body.appendChild(overlay);
+    },
+ 
+    close() {
+        const overlay = document.getElementById('video-modal-overlay');
+        if (overlay) {
+            const iframe = overlay.querySelector('iframe');
+            if (iframe) iframe.src = '';
+            overlay.remove();
+        }
+    }
+};
+ 
+// GeoBeauregard — Géolocalisation vers le Bois de Beauregard
+const GeoBeauregard = {
+    destination: { lat: 48.1372, lng: -1.6901 },
+ 
+    haversine(lat1, lon1, lat2, lon2) {
+        const R = 6371000;
+        const φ1 = lat1 * Math.PI / 180, φ2 = lat2 * Math.PI / 180;
+        const Δφ = (lat2 - lat1) * Math.PI / 180;
+        const Δλ = (lon2 - lon1) * Math.PI / 180;
+        const a = Math.sin(Δφ/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)**2;
+        return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    },
+ 
+    showModal() {
+        const existing = document.getElementById('geo-modal-overlay');
+        if (existing) existing.remove();
+ 
+        const overlay = document.createElement('div');
+        overlay.id = 'geo-modal-overlay';
+        overlay.style.cssText = 'position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.94);backdrop-filter:blur(16px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px';
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.remove(); });
+ 
+        overlay.innerHTML = `
+            <div style="max-width:340px;width:100%;text-align:center;">
+                <div style="width:64px;height:64px;border-radius:50%;background:rgba(204,255,0,0.1);border:2px solid rgba(204,255,0,0.4);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;">
+                    <span style="font-size:28px;">📍</span>
+                </div>
+                <h2 style="color:white;font-weight:900;font-size:22px;margin:0 0 8px;">Bois de Beauregard</h2>
+                <p style="color:#6b7280;font-size:13px;margin:0 0 28px;">Calcul de ton itinéraire en temps réel...</p>
+                <div id="geo-loading" style="color:#ccff00;font-size:13px;font-weight:700;">⚡ Localisation en cours...</div>
+                <div id="geo-result" style="display:none;"></div>
+                <div id="geo-error" style="display:none;color:#ef4444;font-size:13px;font-weight:600;"></div>
+                <button onclick="document.getElementById('geo-modal-overlay').remove()"
+                    style="margin-top:28px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);color:white;font-weight:800;padding:12px 32px;border-radius:100px;font-size:13px;cursor:pointer;width:100%;">
+                    FERMER
+                </button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+ 
+        if (!navigator.geolocation) {
+            document.getElementById('geo-loading').style.display = 'none';
+            document.getElementById('geo-error').style.display = 'block';
+            document.getElementById('geo-error').textContent = 'Géolocalisation non supportée sur cet appareil.';
+            return;
+        }
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const dist = GeoBeauregard.haversine(pos.coords.latitude, pos.coords.longitude, GeoBeauregard.destination.lat, GeoBeauregard.destination.lng);
+                const walkMin = Math.round(dist / 80);
+                const bikeMin = Math.round(dist / 250);
+                const distText = dist < 1000 ? `${Math.round(dist)} m` : `${(dist/1000).toFixed(1)} km`;
+                document.getElementById('geo-loading').style.display = 'none';
+                document.getElementById('geo-result').style.display = 'block';
+                document.getElementById('geo-result').innerHTML = `
+                    <div style="background:rgba(204,255,0,0.06);border:1.5px solid rgba(204,255,0,0.25);border-radius:20px;padding:20px;margin-bottom:12px;">
+                        <div style="color:#ccff00;font-size:36px;font-weight:900;line-height:1;">${distText}</div>
+                        <div style="color:#9ca3af;font-size:12px;font-weight:600;margin-top:4px;text-transform:uppercase;letter-spacing:0.08em;">depuis ta position actuelle</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+                        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;text-align:center;">
+                            <div style="font-size:22px;margin-bottom:4px;">🚶</div>
+                            <div style="color:white;font-weight:800;font-size:18px;">${walkMin} min</div>
+                            <div style="color:#6b7280;font-size:11px;font-weight:600;">À pied</div>
+                        </div>
+                        <div style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:16px;padding:16px;text-align:center;">
+                            <div style="font-size:22px;margin-bottom:4px;">🚲</div>
+                            <div style="color:white;font-weight:800;font-size:18px;">${bikeMin} min</div>
+                            <div style="color:#6b7280;font-size:11px;font-weight:600;">En vélo</div>
+                        </div>
+                    </div>
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=${GeoBeauregard.destination.lat},${GeoBeauregard.destination.lng}&travelmode=walking"
+                       target="_blank"
+                       style="display:block;background:#ccff00;color:black;font-weight:900;text-decoration:none;padding:14px;border-radius:16px;font-size:13px;text-align:center;">
+                        🗺️ &nbsp;Ouvrir dans Google Maps
+                    </a>
+                `;
+            },
+            (err) => {
+                document.getElementById('geo-loading').style.display = 'none';
+                document.getElementById('geo-error').style.display = 'block';
+                const msgs = { 1: 'Accès à la localisation refusé.', 2: 'Position introuvable.', 3: 'Délai dépassé, réessaie.' };
+                document.getElementById('geo-error').textContent = msgs[err.code] || 'Erreur de localisation.';
+            },
+            { timeout: 10000, maximumAge: 60000 }
+        );
+    }
+};
+ 
+// MapProfiles — Profils cliquables sur la carte live
+const MapProfiles = {
+    showProfile(profile) {
+        const existing = document.getElementById('map-profile-modal');
+        if (existing) existing.remove();
+ 
+        const xpBadge = profile.xp >= 10000 ? 'Platine' : profile.xp >= 5000 ? 'Or' : profile.xp >= 1000 ? 'Argent' : 'Bronze';
+        const badgeColor = { Platine:'#e5e4e2', Or:'#f59e0b', Argent:'#9ca3af', Bronze:'#92400e' }[xpBadge];
+ 
+        const modal = document.createElement('div');
+        modal.id = 'map-profile-modal';
+        modal.style.cssText = 'position:fixed;inset:0;z-index:9997;background:rgba(0,0,0,0.85);backdrop-filter:blur(12px);display:flex;align-items:flex-end;justify-content:center;padding:0 0 32px';
+        modal.addEventListener('click', (e) => { if (e.target === modal) modal.remove(); });
+        modal.innerHTML = `
+            <div style="width:100%;max-width:400px;background:#111;border:1px solid rgba(255,255,255,0.1);border-radius:32px 32px 0 0;padding:28px 24px 24px;animation:slideUpModal 0.3s ease;">
+                <div style="width:40px;height:4px;background:rgba(255,255,255,0.15);border-radius:2px;margin:0 auto 24px;"></div>
+                <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+                    <img src="${profile.img}" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid ${profile.color};"
+                         onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}&background=333&color=fff'">
+                    <div>
+                        <div style="color:white;font-weight:900;font-size:18px;line-height:1.2;">${profile.name}</div>
+                        <div style="color:#9ca3af;font-size:12px;font-weight:600;margin-top:3px;">${profile.grade}</div>
+                        <div style="display:inline-block;margin-top:6px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:100px;padding:3px 10px;font-size:11px;font-weight:700;color:${badgeColor};">${xpBadge}</div>
+                    </div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px;">
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px;text-align:center;">
+                        <div style="color:#ccff00;font-weight:900;font-size:16px;">${profile.xp.toLocaleString('fr')}</div>
+                        <div style="color:#6b7280;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">XP</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px;text-align:center;">
+                        <div style="color:white;font-weight:900;font-size:16px;">📍</div>
+                        <div style="color:#6b7280;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">${profile.location}</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px;text-align:center;">
+                        <div style="color:white;font-weight:900;font-size:16px;">🟢</div>
+                        <div style="color:#6b7280;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;margin-top:2px;">En ligne</div>
+                    </div>
+                </div>
+                <button onclick="App.nav('view-social', document.getElementById('nav-social')); setTimeout(()=>App.switchSocialTab('messages'),100); document.getElementById('map-profile-modal').remove();"
+                    style="width:100%;background:#ccff00;color:black;font-weight:900;padding:15px;border-radius:18px;border:none;cursor:pointer;font-size:14px;margin-bottom:10px;">
+                    💬 &nbsp;Envoyer un message
+                </button>
+                <button onclick="document.getElementById('map-profile-modal').remove()"
+                    style="width:100%;background:rgba(255,255,255,0.06);color:white;font-weight:700;padding:13px;border-radius:18px;border:1px solid rgba(255,255,255,0.1);cursor:pointer;font-size:13px;">
+                    Fermer
+                </button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+};
+ 
+window.VideoPlayer  = VideoPlayer;
+window.GeoBeauregard = GeoBeauregard;
+window.MapProfiles  = MapProfiles;
 
 // ==========================================================================
 // LANCEMENT IMMEDIAT
