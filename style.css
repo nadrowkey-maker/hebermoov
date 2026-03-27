@@ -503,3 +503,64 @@ body.tactical-mode #daily-challenge-btn:not(:disabled) {
 #search-results > div[class*="rounded"]:nth-child(2) { animation-delay: 0.05s; }
 #search-results > div[class*="rounded"]:nth-child(3) { animation-delay: 0.1s; }
 #search-results > div[class*="rounded"]:nth-child(4) { animation-delay: 0.15s; }
+/* Animations pour les modales vidéo et profils */
+@keyframes fadeInModal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+ 
+@keyframes slideUpModal {
+    from { transform: translateY(40px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+ 
+/* Bouton lecture vidéo sur chaque étape de parcours */
+.step-video-btn {
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ccff00, #84cc16);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(204, 255, 0, 0.35);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+.step-video-btn:active {
+    transform: scale(0.88);
+    box-shadow: 0 0 8px rgba(204, 255, 0, 0.2);
+}
+ 
+/* Bouton géolocalisation Beauregard */
+.geo-launch-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(204, 255, 0, 0.06);
+    border: 1.5px solid rgba(204, 255, 0, 0.25);
+    border-radius: 18px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.15s;
+}
+.geo-launch-btn:active {
+    transform: scale(0.97);
+    background: rgba(204, 255, 0, 0.1);
+}
+ 
+/* Badge vidéo sur les cartes de parcours */
+.video-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+}
