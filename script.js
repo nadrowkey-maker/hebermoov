@@ -1447,8 +1447,7 @@ const VideoPlayer = {
         ].join(';');
  
         const iframe = document.createElement('iframe');
-        iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
-        iframe.style.cssText = 'width:100%;height:100%;border:none';
+iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&playsinline=1&mute=1&controls=0`;        iframe.style.cssText = 'width:100%;height:100%;border:none';
         iframe.allow = 'autoplay; fullscreen';
         iframeWrap.appendChild(iframe);
  
