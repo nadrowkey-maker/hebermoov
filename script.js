@@ -42,13 +42,13 @@ const DB = {
         "teillay-3": { title: "Le Rituel de l'Aube", type: "Survie Extrême", time: "55 min", kcal: 510, level: "Élite", img: "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80", steps: [{ t: "Reptation boueuse", d: "30m de reptation sur sol détrempé.", c: "Quadrupedie", xp: 170 }, { t: "Défense en forêt", d: "Simuler 3 séquences de défense naturelle.", c: "Defense", xp: 140 }, { t: "Sprint d'urgence", d: "500m en sprint maximum sur terrain meuble.", c: "Course", xp: 120 }] },
  // ===== BOIS DE BEAUREGARD =====
         "beauregard-1": {
-            title: "Le Parcours Naturel",
+            title: "Le Parcours Beauregard",
             type: "Forêt Débutant",
             time: "30 min",
             kcal: 280,
             level: "Débutant",
             zone: "Bois de Beauregard",
-            img: "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=800&q=80",
+            img: "https://i.ibb.co/6cKjjJzS/Parc-de-Beauregard-Quinc-1.jpg",
             gps: { lat: 48.1372, lng: -1.6901 },
             steps: [
                 {
